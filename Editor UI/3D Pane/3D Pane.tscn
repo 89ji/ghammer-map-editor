@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://uch8yh7yjhef"]
+
+[ext_resource type="Script" path="res://Editor UI/3D Pane/Pane3D.cs" id="1_fvokm"]
+[ext_resource type="Texture2D" uid="uid://bv2rbwxx1psq6" path="res://Resources/Textures/poserAnakin.jpg" id="2_w5bws"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6e4vc"]
+sky_top_color = Color(0.55759, 0.241668, 0.243201, 1)
+sky_horizon_color = Color(0.928615, 0.501824, 0.567669, 1)
+sky_cover = ExtResource("2_w5bws")
+
+[sub_resource type="Sky" id="Sky_mbgwu"]
+sky_material = SubResource("ProceduralSkyMaterial_6e4vc")
+
+[sub_resource type="Environment" id="Environment_qtpei"]
+background_mode = 2
+sky = SubResource("Sky_mbgwu")
+
+[sub_resource type="BoxMesh" id="BoxMesh_t04i5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrv4i"]
+size = Vector2(1280, 720)
+
+[node name="3D Pane" type="Node2D" node_paths=PackedStringArray("BrushParent", "RefMesh")]
+script = ExtResource("1_fvokm")
+BrushParent = NodePath("SubViewportContainer/SubViewport/3D Area/Brushes")
+RefMesh = NodePath("SubViewportContainer/SubViewport/3D Area/Brushes/RefCube")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="3D Area" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="Sun" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/3D Area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30, 0)
+light_color = Color(0.77369, 0.68832, 0.0445914, 1)
+
+[node name="Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/3D Area"]
+transform = Transform3D(1, 0, 0, 0, 0.999886, -0.0151139, 0, 0.0151139, 0.999886, 0, 1.04427, 8.4614)
+environment = SubResource("Environment_qtpei")
+current = true
+fov = 37.8493
+
+[node name="CameraLight" type="SpotLight3D" parent="SubViewportContainer/SubViewport/3D Area/Camera"]
+light_color = Color(0.231373, 1, 1, 1)
+spot_range = 25.0
+spot_attenuation = 0.25
+spot_angle = 30.0
+
+[node name="Brushes" type="Node3D" parent="SubViewportContainer/SubViewport/3D Area"]
+
+[node name="RefCube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/3D Area/Brushes"]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, -0.6182)
+visible = false
+mesh = SubResource("BoxMesh_t04i5")
+skeleton = NodePath("../..")
+
+[node name="Pane Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pane Area"]
+position = Vector2(640, 360)
+shape = SubResource("RectangleShape2D_rrv4i")
+
+[connection signal="mouse_entered" from="Pane Area" to="." method="UpdateMouseState" binds= [true]]
+[connection signal="mouse_exited" from="Pane Area" to="." method="UpdateMouseState" binds= [false]]
