@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmriwgdpej5te"]
+
+[ext_resource type="Script" path="res://Editor UI/2D Pane/Subpane2D.cs" id="1_iud15"]
+[ext_resource type="Texture2D" uid="uid://dhnfh54efl4bf" path="res://Resources/Textures/1280x720.png" id="2_t43p3"]
+[ext_resource type="FontFile" uid="uid://qewukm6ui1vr" path="res://Resources/Fonts/UniversLight.ttf" id="3_4j0cy"]
+[ext_resource type="Texture2D" uid="uid://og1h1l2h7ppe" path="res://icon.svg" id="4_4oohi"]
+
+[sub_resource type="Theme" id="Theme_m4wna"]
+default_font = ExtResource("3_4j0cy")
+default_font_size = 40
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_58vxe"]
+
+[node name="2D Subpane" type="Node2D" node_paths=PackedStringArray("BrushParent")]
+script = ExtResource("1_iud15")
+BrushParent = NodePath("Brushes")
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="Background" type="Node2D" parent="Camera"]
+
+[node name="White Edge" type="Sprite2D" parent="Camera/Background"]
+texture = ExtResource("2_t43p3")
+metadata/_edit_lock_ = true
+
+[node name="background" type="Sprite2D" parent="Camera/Background"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0, 1.07288e-06)
+scale = Vector2(0.991875, 0.988889)
+texture = ExtResource("2_t43p3")
+metadata/_edit_lock_ = true
+
+[node name="Face Label" type="RichTextLabel" parent="Camera/Background"]
+offset_left = -631.0
+offset_top = -354.0
+offset_right = -39.0
+offset_bottom = -303.0
+theme = SubResource("Theme_m4wna")
+text = "Face (x/y/z)"
+
+[node name="Ref Tick Lines" type="Node2D" parent="."]
+visible = false
+
+[node name="Ref Vertical Line" type="Line2D" parent="Ref Tick Lines"]
+points = PackedVector2Array(0, 0, 0, 720)
+width = 2.0
+
+[node name="Ref Horizontal Line" type="Line2D" parent="Ref Tick Lines"]
+points = PackedVector2Array(0, 0, 1280, 0)
+width = 2.0
+
+[node name="Icon" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-2, -3)
+texture = ExtResource("4_4oohi")
+
+[node name="Brushes" type="Node2D" parent="."]
+
+[node name="RefSquare" type="MeshInstance2D" parent="Brushes"]
+visible = false
+mesh = SubResource("ArrayMesh_58vxe")
+
+[node name="RefLine" type="Line2D" parent="Brushes"]
