@@ -6,28 +6,32 @@ namespace gHammerMapEditor.Types;
 public class Brush
 {
 	private readonly Transform transform;
-
-	//List<Face> faces;
-	readonly HashSet<Coord3d> coordSet;
-	public Dictionary<Coord3d, Coord3d> transformedPoints = new();
+	public readonly Dictionary<Coord3d, Coord3d> TransformedPoints = new();
+	private readonly RefCube refCube = new();
 
 	public Brush(Transform transform)
 	{
 		this.transform = transform;
-		coordSet = new HashSet<Coord3d>();
-		foreach (var coord in Shapes.GetCubePoints()) coordSet.Add(coord);
+		foreach (var coord in refCube.Vertexes) TransformedPoints.Add(coord, coord);
+		CalculateTransform();
 	}
 
-	public void CalculateTransform()
+	public Brush()
 	{
-		transformedPoints.Clear();
+		transform = new();
+		foreach (var coord in refCube.Vertexes) TransformedPoints.Add(coord, coord);
+		CalculateTransform();
+	}
 
-		foreach (var coord in coordSet)
+	private void CalculateTransform()
+	{
+		foreach (var coord in refCube.Vertexes)
 		{
 			var tCoord = transform * coord;
-			transformedPoints.Add(coord, tCoord);
+			TransformedPoints[coord] = tCoord;
 		}
 	}
+	
 	public void Translate(Vector3 translation)
 	{
 		transform.TranslateBy(translation);
@@ -45,10 +49,38 @@ public class Brush
 		transform.ScaleBy(scale);
 		CalculateTransform();
 	}
+
+	public List<Coord3d> GetNormals()
+	{
+		List<Coord3d> normals = new();
+		foreach (var face in refCube.Faces)
+		{
+			var A = TransformedPoints[face.Item1] - TransformedPoints[face.Item2];
+			var B = TransformedPoints[face.Item2] - TransformedPoints[face.Item3];
+
+			var norm1 = A.Cross(B);
+			
+			normals.Add(norm1.Normalize());
+		}
+		return normals;
+	}
 	
 	public Vector3 GetTranslate => transform.Translation;
 	public Vector3 GetRotation => transform.Rotation;
 	public Vector3 GetScale => transform.Scale;
+	public Coord3d GetCentroid()
+	{
+		float X = 0;
+		float Y = 0;
+		float Z = 0;
+		foreach (var point in TransformedPoints.Values)
+		{
+			X += point.X;
+			Y += point.Y;
+			Z += point.Z;
+		}
+		return new Coord3d(X/8, Y/8, Z/8);
+	}
 
 	public Transform GetTransform() => transform;
 }

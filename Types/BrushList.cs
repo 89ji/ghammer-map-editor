@@ -6,40 +6,30 @@ namespace gHammerMapEditor.Types;
 
 public class BrushList : IEnumerable<Brush>
 {
-	List<Brush> brushList;
-	
-	List<Pane2D> pane2DList;
-	Pane3D pane3d;
+	public static readonly BrushList Instance = new();
+	List<Brush> brushes = new();
 
-	public BrushList(IEnumerable<Pane2D> PaneList, Pane3D pane3d)
+	private BrushList()
 	{
-		this.pane3d = pane3d;
-		pane2DList = PaneList.ToList();
-		brushList = new List<Brush>();
 	}
 
 	public void AddBrush(Brush brush)
 	{
-		brushList.Add(brush);
-		foreach (var pane in pane2DList) pane.subpane.NotifyAddBrush(brush);
-		pane3d.NotifyAddBrush(brush);
-		brush.CalculateTransform();
+		brushes.Add(brush);
 	}
 
 	public void DeleteBrush(Brush brush)
 	{
-		brushList.Remove(brush);
-		foreach (var pane in pane2DList) pane.subpane.NotifyDelBrush(brush);
-		pane3d.NotifyDelBrush(brush);
+		brushes.Remove(brush);
 	}
 
 	public IEnumerator<Brush> GetEnumerator()
 	{
-		return brushList.GetEnumerator();
+		return brushes.GetEnumerator();
 	}
 
 	IEnumerator IEnumerable.GetEnumerator()
 	{
-		return brushList.GetEnumerator();
+		return brushes.GetEnumerator();
 	}
 }

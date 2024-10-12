@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace gHammerMapEditor.Types;
 
-public class Coord3d : IEquatable<Coord3d>
+public class Coord3d
 {
     Vector4 vector;
     public float X => vector.X / vector.W;
@@ -15,6 +15,16 @@ public class Coord3d : IEquatable<Coord3d>
         vector = new(x, y, z, 1);
     }
 
+    public float Length()
+    {
+        return MathF.Sqrt(X * X + Y * Y + Z * Z);
+    }
+    public Coord3d Normalize()
+    {
+        float magnitude = Length();
+        return new(X/magnitude, Y/magnitude, Z/magnitude);
+    }
+    
     public static Coord3d operator*(Transform lhs, Coord3d rhs)
     {
         Vector4 res = new();
@@ -25,28 +35,25 @@ public class Coord3d : IEquatable<Coord3d>
         res.W = m.M41 * rhs.X + m.M42 * rhs.Y + m.M43 * rhs.Z + m.M44;
         return new Coord3d(res.X/res.W, res.Y/res.W, res.Z/res.W);
     }
-
-    public bool Equals(Coord3d other)
+    public static Vector3d operator-(Coord3d lhs, Coord3d rhs) => new (lhs.X-rhs.X, lhs.Y-rhs.Y, lhs.Z-rhs.Z);
+    public static float Dot(Coord3d lhs, Coord3d rhs) => lhs.X * rhs.X + lhs.Y * rhs.Y + lhs.Z * rhs.Z;
+    
+    public static Vector3d Cross(Coord3d a, Coord3d b)
     {
-        if (other is null) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return vector.Equals(other.vector);
+        return new(a.Y*b.Z - a.Z*b.Y, a.Z*b.X - a.X*b.Z, a.X*b.Y - a.Y*b.X);
     }
 
-    public override bool Equals(object obj)
+    public Vector3d Cross(Coord3d b)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        Coord3d other = (Coord3d)obj;
-        if(X != other.X) return false;
-        if(Y != other.Y) return false;
-        if(Z != other.Z) return false;
-        return true;
+        return new(Y * b.Z - Z * b.Y, Z * b.X - X * b.Z, X * b.Y - Y * b.X);
+    }
+    public Vector3d Cross(Vector3d b)
+    {
+        return new(Y * b.Z - Z * b.Y, Z * b.X - X * b.Z, X * b.Y - Y * b.X);
     }
 
-    public override int GetHashCode()
+    public Godot.Vector3 ToGDVector3()
     {
-        return X.GetHashCode() ^ (int) Y.GetHashCode() ^ (int) Z.GetHashCode();
+        return new Godot.Vector3(vector.X, vector.Y, vector.Z);
     }
 }

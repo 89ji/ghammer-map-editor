@@ -1,4 +1,4 @@
-﻿namespace gHammerMapEditor.Types;
+﻿namespace gHammerMapEditor.Enums;
 
 public enum Dimension2D
 {

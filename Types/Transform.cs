@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using gHammerMapEditor.Enums;
 using gHammerMapEditor.Util;
 using Godot;
 using Vector3 = System.Numerics.Vector3;

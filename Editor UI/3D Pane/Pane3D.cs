@@ -1,111 +1,33 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using gHammerMapEditor.Types;
+using gHammerMapEditor.Util;
 
 public partial class Pane3D : Node2D
 {
-Camera3D camera;
-	Area2D area;
-	private bool mouseIsInside;
-	[Export] float CameraSpeed = 25;
-	[Export] float MouseSensitivity = .005f;
-	[Export] float MaxViewAngle = 1.5f;
-	[Export] float MaxFOV = 120;
-	[Export] float MinFOV = 30;
-	
-	private bool cameraMoveable;
-	
 	[Export] private Node3D BrushParent;
-	[Export] private MeshInstance3D RefMesh;
+	[Export] private MeshInstance3D refMesh;
 	Dictionary<Brush, MeshInstance3D> brush2mesh = new();
+	BrushList brushList;
 	
 	public override void _Ready()
 	{
-		camera = GetNode<Camera3D>("SubViewportContainer/SubViewport/3D Area/Camera");
-		area = GetNode<Area2D>("Pane Area");
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		if (mouseIsInside)
-		{
-			Vector3 movement = new(
-				Input.GetActionStrength("right") - Input.GetActionStrength("left"),
-				Input.GetActionStrength("up") - Input.GetActionStrength("down"),
-				Input.GetActionStrength("back") - Input.GetActionStrength("fwd")
-				);
-			
-			if (movement != Vector3.Zero) movement = movement.Normalized();
-			movement = movement * CameraSpeed * (float)delta;
-			if (Input.GetActionStrength("sprint") > 0) movement *= 1.5f;
-
-			// Button is inside and clicking, do camera move stuff
-			if (Input.IsMouseButtonPressed(MouseButton.Left))
-			{
-				cameraMoveable = true;
-				Input.SetMouseMode(Input.MouseModeEnum.Captured);
-			}
-
-			// Inside but no click
-			else
-			{
-				cameraMoveable = false;
-				Input.SetMouseMode(Input.MouseModeEnum.Visible);
-			}
-			
-			
-			camera.Translate(movement);
-		}
-		
-		// The mouse is not in the window
-		else
-		{
-			Input.SetMouseMode(Input.MouseModeEnum.Visible);
-		}
-	}
-
-	public void UpdateMouseState(bool isMouseInside)
-	{
-		mouseIsInside = isMouseInside;
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (!cameraMoveable) return;
-		if (@event is InputEventMouseMotion mouseEvent)
-		{
-			var movement = mouseEvent.Relative * MouseSensitivity;
-			var oldCameraRot = camera.Rotation;
-			oldCameraRot.X -= movement.Y;
-			oldCameraRot.Y -= movement.X;
-			if (oldCameraRot.X > MaxViewAngle) oldCameraRot.X = MaxViewAngle;
-			if (oldCameraRot.X < -MaxViewAngle) oldCameraRot.X = -MaxViewAngle;
-			
-			camera.Rotation = oldCameraRot;
-		}
-		else if (@event is InputEventMouseButton mouseButtonEvent)
-		{
-			if (mouseButtonEvent.ButtonIndex == MouseButton.WheelUp)
-			{
-				camera.Fov -= 3;
-				if (camera.Fov < MinFOV) camera.Fov = MinFOV;
-			}
-			else if (mouseButtonEvent.ButtonIndex == MouseButton.WheelDown)
-			{
-				camera.Fov += 3;
-				if (camera.Fov > MaxFOV) camera.Fov = MaxFOV;
-			}
-		}
+		brushList = BrushList.Instance;
 	}
 	
+	
+	public override void _Process(double delta)
+	{
+		Refresh();
+	}
 
 	public void NotifyAddBrush(Brush b)
 	{
 		if(brush2mesh.ContainsKey(b)) throw new Exception("Brush already added!");
 		
-		MeshInstance3D mesh = (MeshInstance3D)RefMesh.Duplicate();
+		MeshInstance3D mesh = (MeshInstance3D)refMesh.Duplicate();
 		mesh.Transform = b.GetTransform().ToGDTransform();
 		mesh.Visible = true;
 		BrushParent.AddChild(mesh);
@@ -120,12 +42,34 @@ Camera3D camera;
 		brush2mesh.Remove(b);
 	}
 
-	public void Refresh()
+	private void Refresh()
 	{
-		foreach (var brush in brush2mesh.Keys)
+		List<Brush> oldBrushList = brush2mesh.Keys.ToList();
+		
+		foreach (var brush in brushList)
 		{
-			brush2mesh[brush].Transform = brush.GetTransform().ToGDTransform();
+			// Dict has brush
+			if (brush2mesh.ContainsKey(brush))
+			{
+				foreach (var normal in brush.GetNormals())
+				{
+					
+					MeshInstance3D mesh = (MeshInstance3D)refMesh.Duplicate();
+					mesh.Translate((brush.GetTranslate.ToGDVec3() + normal.ToGDVector3() * 10));
+					mesh.Visible = true;
+				}
+				
+				
+				brush2mesh[brush].Transform = brush.GetTransform().ToGDTransform();
+				oldBrushList.Remove(brush);
+			}
+
+			// Brush is new
+			else NotifyAddBrush(brush);
 		}
+		
+		// Cleanup old brushes
+		foreach (var brush in oldBrushList) NotifyDelBrush(brush);
 	}
 	
 }

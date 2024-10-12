@@ -1,28 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://6bixuooicr5l"]
+[gd_scene load_steps=3 format=3 uid="uid://6bixuooicr5l"]
 
-[ext_resource type="PackedScene" uid="uid://djuseu8v5mh2b" path="res://Editor UI/2D Pane/2D Pane.tscn" id="1_0bcsi"]
 [ext_resource type="Script" path="res://Editor UI/Full Panes/EditorPane.cs" id="1_aproy"]
 [ext_resource type="PackedScene" uid="uid://uch8yh7yjhef" path="res://Editor UI/3D Pane/3D Pane.tscn" id="2_d1l3i"]
 
-[node name="EditorPane" type="Node2D" node_paths=PackedStringArray("Top", "Side", "Front", "View")]
+[node name="EditorPane" type="Node2D" node_paths=PackedStringArray("View")]
 script = ExtResource("1_aproy")
-Top = NodePath("Top")
-Side = NodePath("Side")
-Front = NodePath("Front")
 View = NodePath("3D Pane")
 
-[node name="Top" parent="." instance=ExtResource("1_0bcsi")]
-position = Vector2(0, -720)
-
-[node name="Side" parent="." instance=ExtResource("1_0bcsi")]
-dimension = 2
-
-[node name="Front" parent="." instance=ExtResource("1_0bcsi")]
-position = Vector2(-1280, 0)
-dimension = 1
-
 [node name="3D Pane" parent="." instance=ExtResource("2_d1l3i")]
-position = Vector2(-1280, -720)
+position = Vector2(-980, -542)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://s53gb00i46v1"]
+
+[ext_resource type="Script" path="res://Editor UI/Brush Selector/BrushSelector.cs" id="1_il07e"]
+
+[node name="BrushSelector" type="Node2D"]
+script = ExtResource("1_il07e")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemList" type="ItemList" parent="Control"]
+layout_mode = 0
+offset_right = 679.0
+offset_bottom = 264.0
+allow_reselect = true
+allow_search = false

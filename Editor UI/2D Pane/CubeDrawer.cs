@@ -2,26 +2,28 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using gHammerMapEditor.Enums;
 using gHammerMapEditor.Types;
 
 public partial class CubeDrawer : Node2D
 {
 	private Brush brush;
 	private Dimension2D dim;
+	static RefCube cube = new RefCube();
 	
 	public static CubeDrawer Instantiate(Brush brush, Dimension2D dim)
 	{
 		var ret = new CubeDrawer();
 		ret.brush = brush;
 		ret.dim = dim;
-		foreach (var Edge in Shapes.GetCubeEdges())
+		foreach (var Edge in cube.Edges)
 		{
 			var line = new Line2D();
 			line.Width = .25f;
 			line.Antialiased = true;
 			ret.AddChild(line);
-			var point1 = brush.transformedPoints[Edge.Item1];
-			var point2 = brush.transformedPoints[Edge.Item2];
+			var point1 = brush.TransformedPoints[Edge.Item1];
+			var point2 = brush.TransformedPoints[Edge.Item2];
 			switch (dim)
 			{
 				case Dimension2D.XY:
@@ -54,11 +56,11 @@ public partial class CubeDrawer : Node2D
 
 	public void Refresh()
 	{
-		Shapes.GetCubeEdges().Zip<(Coord3d, Coord3d), Node, object>(GetChildren(), (edge, node) =>
+		cube.Edges.Zip<(Coord3d, Coord3d), Node, object>(GetChildren(), (edge, node) =>
 		{
 			Line2D line = (Line2D)node;
-			var point1 = brush.transformedPoints[edge.Item1];
-			var point2 = brush.transformedPoints[edge.Item2];
+			var point1 = brush.TransformedPoints[edge.Item1];
+			var point2 = brush.TransformedPoints[edge.Item2];
 			
 			switch (dim)
 			{

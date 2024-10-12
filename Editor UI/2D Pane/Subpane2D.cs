@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using gHammerMapEditor.Enums;
 using gHammerMapEditor.Types;
 
 public partial class Subpane2D : Node2D
