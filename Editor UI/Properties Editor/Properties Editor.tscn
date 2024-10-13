@@ -1,0 +1,146 @@
+[gd_scene load_steps=2 format=3 uid="uid://car7q4ortt5nl"]
+
+[ext_resource type="Script" path="res://Editor UI/Properties Editor/PropertiesEditor.cs" id="1_r41ok"]
+
+[node name="PropertiesEditor" type="Node2D" node_paths=PackedStringArray("transX", "transY", "transZ", "rotX", "rotY", "rotZ", "scaleX", "scaleY", "scaleZ")]
+script = ExtResource("1_r41ok")
+transX = NodePath("Translate/X")
+transY = NodePath("Translate/Y")
+transZ = NodePath("Translate/Z")
+rotX = NodePath("Rotation/X")
+rotY = NodePath("Rotation/Y")
+rotZ = NodePath("Rotation/Z")
+scaleX = NodePath("Scale/X")
+scaleY = NodePath("Scale/Y")
+scaleZ = NodePath("Scale/Z")
+
+[node name="Translate" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="RichTextLabel" parent="Translate"]
+layout_mode = 0
+offset_right = 239.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+text = "Translate"
+
+[node name="X" type="LineEdit" parent="Translate"]
+layout_mode = 0
+offset_left = 235.0
+offset_top = -7.0
+offset_right = 399.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "X"
+alignment = 1
+
+[node name="Y" type="LineEdit" parent="Translate"]
+layout_mode = 0
+offset_left = 407.0
+offset_top = -7.0
+offset_right = 571.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "Y"
+alignment = 1
+
+[node name="Z" type="LineEdit" parent="Translate"]
+layout_mode = 0
+offset_left = 579.0
+offset_top = -7.0
+offset_right = 743.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "Z"
+alignment = 1
+
+[node name="Rotation" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 80.0
+offset_right = 40.0
+offset_bottom = 120.0
+
+[node name="Title" type="RichTextLabel" parent="Rotation"]
+layout_mode = 0
+offset_right = 239.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+text = "Rotation"
+
+[node name="X" type="LineEdit" parent="Rotation"]
+layout_mode = 0
+offset_left = 235.0
+offset_top = -7.0
+offset_right = 399.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "X"
+alignment = 1
+
+[node name="Y" type="LineEdit" parent="Rotation"]
+layout_mode = 0
+offset_left = 407.0
+offset_top = -7.0
+offset_right = 571.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "Y"
+alignment = 1
+
+[node name="Z" type="LineEdit" parent="Rotation"]
+layout_mode = 0
+offset_left = 579.0
+offset_top = -7.0
+offset_right = 743.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "Z"
+alignment = 1
+
+[node name="Scale" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 159.0
+offset_right = 40.0
+offset_bottom = 199.0
+
+[node name="Title" type="RichTextLabel" parent="Scale"]
+layout_mode = 0
+offset_right = 239.0
+offset_bottom = 62.0
+theme_override_font_sizes/normal_font_size = 42
+text = "Scale"
+
+[node name="X" type="LineEdit" parent="Scale"]
+layout_mode = 0
+offset_left = 235.0
+offset_top = -7.0
+offset_right = 399.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "X"
+alignment = 1
+
+[node name="Y" type="LineEdit" parent="Scale"]
+layout_mode = 0
+offset_left = 407.0
+offset_top = -7.0
+offset_right = 571.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "Y"
+alignment = 1
+
+[node name="Z" type="LineEdit" parent="Scale"]
+layout_mode = 0
+offset_left = 579.0
+offset_top = -7.0
+offset_right = 743.0
+offset_bottom = 59.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "Z"
+alignment = 1

@@ -32,23 +32,42 @@ public class Brush
 		}
 	}
 	
-	public void Translate(Vector3 translation)
+	public void TranslateBy(Vector3 translation)
 	{
 		transform.TranslateBy(translation);
 		CalculateTransform();
 	}
 
-	public void Rotate(Vector3 rotate)
+	public void RotateBy(Vector3 rotate)
 	{
 		transform.RotateBy(rotate);
 		CalculateTransform();
 	}
 
-	public void Scale(Vector3 scale)
+	public void ScaleBy(Vector3 scale)
 	{
 		transform.ScaleBy(scale);
 		CalculateTransform();
 	}
+
+	public void TranslateTo(Vector3 translation)
+	{
+		transform.TranslateTo(translation);
+		CalculateTransform();
+	}
+	
+	public void RotateTo(Vector3 rotate)
+	{
+		transform.RotateTo(rotate);
+		CalculateTransform();
+	}
+
+	public void ScaleTo(Vector3 scale)
+	{
+		transform.ScaleTo(scale);
+		CalculateTransform();
+	}
+	
 
 	public List<Coord3d> GetNormals()
 	{

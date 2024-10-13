@@ -49,6 +49,22 @@ public class Transform
         isMatCurrent = false;
         Scale += scale;
     }
+    
+    public void TranslateTo(Vector3 translation)
+    {
+        isMatCurrent = false;
+        Translation = translation;
+    }
+    public void RotateTo(Vector3 rotation)
+    {
+        isMatCurrent = false;
+        Rotation = rotation;
+    }
+    public void ScaleTo(Vector3 scale)
+    { 
+        isMatCurrent = false;
+        Scale = scale;
+    }
 
     public Matrix4x4 GetMat()
     {

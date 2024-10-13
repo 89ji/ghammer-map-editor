@@ -51,15 +51,6 @@ public partial class Pane3D : Node2D
 			// Dict has brush
 			if (brush2mesh.ContainsKey(brush))
 			{
-				foreach (var normal in brush.GetNormals())
-				{
-					
-					MeshInstance3D mesh = (MeshInstance3D)refMesh.Duplicate();
-					mesh.Translate((brush.GetTranslate.ToGDVec3() + normal.ToGDVector3() * 10));
-					mesh.Visible = true;
-				}
-				
-				
 				brush2mesh[brush].Transform = brush.GetTransform().ToGDTransform();
 				oldBrushList.Remove(brush);
 			}
