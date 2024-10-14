@@ -53,4 +53,10 @@ public abstract class MapObject
 	public Vector3 GetRotation => transform.Rotation;
 	public Vector3 GetScale => transform.Scale;
 	public Transform GetTransform() => transform;
+
+	// Called when the map object is selected in the editor
+	public abstract void OnSelect();
+	
+	// Called when the map object is deselected in the editor
+	public abstract void OnDeselect();
 }

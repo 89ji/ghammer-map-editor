@@ -13,6 +13,9 @@ config_version=5
 config/name="gHammer Map Editor"
 run/main_scene="res://Editor UI/Full Panes/Editor Pane.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+boot_splash/image="res://Resources/Textures/File Icon/ficon.png"
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://Resources/Textures/Logo/gGammer logo.png"
 
 [display]

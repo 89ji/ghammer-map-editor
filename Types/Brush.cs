@@ -99,4 +99,13 @@ public class Brush : MapObject
 	}
 
 	public Transform GetTransform() => transform;
+	public override void OnSelect()
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public override void OnDeselect()
+	{
+		throw new System.NotImplementedException();
+	}
 }

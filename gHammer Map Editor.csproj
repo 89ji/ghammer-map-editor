@@ -14,4 +14,7 @@
     <EmbeddedResource Remove="Editor UI\2d Editor Panel\**" />
     <EmbeddedResource Remove="Editor UI\3d Editor Panel\**" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Highlight.gdshader" />
+  </ItemGroup>
 </Project>

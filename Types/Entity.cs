@@ -6,6 +6,7 @@ namespace gHammerMapEditor.Types;
 public class Entity : MapObject
 {
 	public EntityType Type { set; get; }
+	
 
 	public Entity(EntityType entityType)
 	{
@@ -20,5 +21,15 @@ public class Entity : MapObject
 	public override void ScaleTo(Vector3 scale)
 	{
 		return;
+	}
+
+	public override void OnSelect()
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public override void OnDeselect()
+	{
+		throw new System.NotImplementedException();
 	}
 }
