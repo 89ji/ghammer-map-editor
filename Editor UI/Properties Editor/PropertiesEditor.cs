@@ -18,8 +18,7 @@ public partial class PropertiesEditor : Node2D
 	[Export] LineEdit scaleZ;
 	
 	BrushList brushList = BrushList.Instance;
-	public Brush currentBrush;
-	private Brush oldCurrentBrush;
+	Brush currentBrush;
 	
 	public override void _Ready()
 	{
@@ -28,8 +27,6 @@ public partial class PropertiesEditor : Node2D
 	
 	public override void _Process(double delta)
 	{
-		if (currentBrush != oldCurrentBrush) LoadValues();
-		oldCurrentBrush = currentBrush;
 		UpdateValues();
 	}
 
@@ -55,12 +52,40 @@ public partial class PropertiesEditor : Node2D
 	void UpdateValues()
 	{
 		if (currentBrush == null) return;
-		System.Numerics.Vector3 editorTrans = new (transX.Text.ToFloat(), transY.Text.ToFloat(), transZ.Text.ToFloat());
-		System.Numerics.Vector3 editorRot = new (rotX.Text.ToFloat().toRad(), rotY.Text.ToFloat().toRad(), rotZ.Text.ToFloat().toRad());
-		System.Numerics.Vector3 editorScale = new (scaleX.Text.ToFloat(), scaleY.Text.ToFloat(), scaleZ.Text.ToFloat());
-		
-		currentBrush.TranslateTo(editorTrans);
-		currentBrush.RotateTo(editorRot);
-		currentBrush.ScaleTo(editorScale);
+		try
+		{
+			System.Numerics.Vector3 editorTrans = new (transX.Text.ToFloat(), transY.Text.ToFloat(), transZ.Text.ToFloat());
+			System.Numerics.Vector3 editorRot = new (rotX.Text.ToFloat().toRad(), rotY.Text.ToFloat().toRad(), rotZ.Text.ToFloat().toRad());
+			System.Numerics.Vector3 editorScale = new (scaleX.Text.ToFloat(), scaleY.Text.ToFloat(), scaleZ.Text.ToFloat());
+			
+			currentBrush.TranslateTo(editorTrans);
+			currentBrush.RotateTo(editorRot);
+			currentBrush.ScaleTo(editorScale);
+		}
+		catch
+		{
+			
+		}
+	}
+
+	void ClearEntries()
+	{
+		transX.Clear();
+		transY.Clear();
+		transZ.Clear();
+		rotX.Clear();
+		rotY.Clear();
+		rotZ.Clear();
+		scaleX.Clear();
+		scaleY.Clear();
+		scaleZ.Clear();
+		transX.Editable = true;
+	}
+
+	public void UpdateBrush(Brush newBrush)
+	{
+		currentBrush = newBrush;
+		if (currentBrush == null) ClearEntries();
+		else LoadValues();
 	}
 }

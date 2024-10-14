@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf6mimnh4vv32"]
+
+[ext_resource type="Script" path="res://Editor UI/Brush Buttons/BrushButtons.cs" id="1_fegpv"]
+[ext_resource type="Texture2D" uid="uid://dhnfh54efl4bf" path="res://Resources/Textures/1280x720.png" id="1_o0lvy"]
+[ext_resource type="Texture2D" uid="uid://ctg2ebr6hmb0h" path="res://Resources/Textures/Buttons/Plus/plus.png" id="2_cka5s"]
+[ext_resource type="Texture2D" uid="uid://dof8g8wc4nl4y" path="res://Resources/Textures/Buttons/minus.png" id="3_fjxrs"]
+
+[node name="BrushButtons" type="Node2D"]
+script = ExtResource("1_fegpv")
+
+[node name="1280x720" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.197937, 0.197937, 0.197937, 1)
+position = Vector2(37.4375, 16)
+scale = Vector2(0.0586914, 0.0444444)
+texture = ExtResource("1_o0lvy")
+
+[node name="PlusButton" type="Button" parent="."]
+offset_right = 36.0
+offset_bottom = 36.0
+
+[node name="Plus" type="Sprite2D" parent="."]
+position = Vector2(18, 18)
+texture = ExtResource("2_cka5s")
+
+[node name="MinusButton" type="Button" parent="."]
+offset_left = 57.0
+offset_right = 93.0
+offset_bottom = 36.0
+
+[node name="Minus" type="Sprite2D" parent="."]
+position = Vector2(75, 18)
+texture = ExtResource("3_fjxrs")
+
+[connection signal="pressed" from="PlusButton" to="." method="TriggerUpperHandler" binds= [true]]
+[connection signal="pressed" from="MinusButton" to="." method="TriggerUpperHandler" binds= [false]]

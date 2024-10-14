@@ -32,4 +32,9 @@ public class BrushList : IEnumerable<Brush>
 	{
 		return brushes.GetEnumerator();
 	}
+
+	public void ClearBrushes()
+	{
+		brushes.Clear();
+	}
 }

@@ -7,14 +7,20 @@ using gHammerMapEditor.Util;
 
 public partial class Pane3D : Node2D
 {
-	[Export] private Node3D BrushParent;
-	[Export] private MeshInstance3D refMesh;
-	Dictionary<Brush, MeshInstance3D> brush2mesh = new();
+	[Export] Node3D BrushParent;
+	[Export] PackedScene refCube;
+	Dictionary<Brush, Node3D> brush2mesh = new();
 	BrushList brushList;
+	
+	[Signal] public delegate void TargetUpdatedEventHandler();
+	Crosshair crossMan;
+	public Brush lookingBrush;
 	
 	public override void _Ready()
 	{
+		crossMan = GetNode<Crosshair>("SubViewportContainer/SubViewport/3D Area/Camera/Crosshair");
 		brushList = BrushList.Instance;
+		crossMan.Toggle(true);
 	}
 	
 	
@@ -26,8 +32,8 @@ public partial class Pane3D : Node2D
 	public void NotifyAddBrush(Brush b)
 	{
 		if(brush2mesh.ContainsKey(b)) throw new Exception("Brush already added!");
-		
-		MeshInstance3D mesh = (MeshInstance3D)refMesh.Duplicate();
+
+		var mesh = refCube.Instantiate<Node3D>();
 		mesh.Transform = b.GetTransform().ToGDTransform();
 		mesh.Visible = true;
 		BrushParent.AddChild(mesh);
@@ -61,6 +67,12 @@ public partial class Pane3D : Node2D
 		
 		// Cleanup old brushes
 		foreach (var brush in oldBrushList) NotifyDelBrush(brush);
+		
 	}
-	
+
+	void TargetUpdatedHandler()
+	{
+		foreach (var brush in brush2mesh.Keys) if (brush2mesh[brush] == crossMan.collisionObject) lookingBrush = brush;
+		EmitSignal(SignalName.TargetUpdated);
+	}
 }

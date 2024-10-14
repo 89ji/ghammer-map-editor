@@ -8,15 +8,15 @@ bottom_radius = 1.0
 height = 0.5
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ykkxb"]
+height = 4.0
 
 [node name="PointerArrow" type="Node3D"]
 script = ExtResource("1_ilfip")
 
 [node name="Head" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.25527, 0)
 mesh = SubResource("CylinderMesh_pjvh5")
 
 [node name="Body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 mesh = SubResource("CylinderMesh_ykkxb")

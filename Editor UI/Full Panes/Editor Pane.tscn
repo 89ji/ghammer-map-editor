@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://6bixuooicr5l"]
+[gd_scene load_steps=6 format=3 uid="uid://6bixuooicr5l"]
 
 [ext_resource type="Script" path="res://Editor UI/Full Panes/EditorPane.cs" id="1_aproy"]
 [ext_resource type="PackedScene" uid="uid://uch8yh7yjhef" path="res://Editor UI/3D Pane/3D Pane.tscn" id="2_d1l3i"]
 [ext_resource type="PackedScene" uid="uid://s53gb00i46v1" path="res://Editor UI/Brush Selector/Brush Selector.tscn" id="3_shr1c"]
 [ext_resource type="PackedScene" uid="uid://car7q4ortt5nl" path="res://Editor UI/Properties Editor/Properties Editor.tscn" id="4_cpnbk"]
+[ext_resource type="PackedScene" uid="uid://bf6mimnh4vv32" path="res://Editor UI/Brush Buttons/Brush Buttons.tscn" id="5_jnlde"]
 
 [node name="EditorPane" type="Node2D" node_paths=PackedStringArray("View", "selector", "properties")]
 script = ExtResource("1_aproy")
@@ -23,3 +24,10 @@ scale = Vector2(0.8, 0.8)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
+
+[node name="BrushButtons" parent="." instance=ExtResource("5_jnlde")]
+position = Vector2(944, -692)
+
+[connection signal="TargetUpdated" from="3D Pane" to="." method="OnTargetUpdatedHandler"]
+[connection signal="BrushSelected" from="BrushSelector" to="." method="OnNewBrushSelected"]
+[connection signal="ButtonPressed" from="BrushButtons" to="." method="ButtonPressed"]

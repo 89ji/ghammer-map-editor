@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://uch8yh7yjhef"]
+[gd_scene load_steps=12 format=3 uid="uid://uch8yh7yjhef"]
 
 [ext_resource type="Script" path="res://Editor UI/3D Pane/Pane3D.cs" id="1_fvokm"]
+[ext_resource type="PackedScene" uid="uid://cpp10b2pbmmw1" path="res://Editor UI/3D Pane/RefCube.tscn" id="2_i5lwb"]
 [ext_resource type="Texture2D" uid="uid://caqpqtr15qetg" path="res://Resources/Textures/Skyboxes/1920px-Sky_well_01.jpg" id="2_sbyfr"]
 [ext_resource type="Script" path="res://Editor UI/3D Pane/CameraManager3D.cs" id="3_0wbdk"]
+[ext_resource type="Script" path="res://Editor UI/3D Pane/Crosshair.cs" id="4_kh5ft"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6o1bm"]
 sky_cover = ExtResource("2_sbyfr")
@@ -15,15 +17,24 @@ background_mode = 2
 sky = SubResource("Sky_mbgwu")
 sdfgi_use_occlusion = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_t04i5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_517jq"]
+albedo_color = Color(0.989004, 0.376231, 1.34766e-06, 1)
+metallic = 0.75
+metallic_specular = 0.0
+roughness = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6d2w7"]
+material = SubResource("StandardMaterial3D_517jq")
+radius = 0.0125
+height = 0.025
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rrv4i"]
 size = Vector2(1920, 1080)
 
-[node name="3D Pane" type="Node2D" node_paths=PackedStringArray("BrushParent", "refMesh")]
+[node name="3D Pane" type="Node2D" node_paths=PackedStringArray("BrushParent")]
 script = ExtResource("1_fvokm")
 BrushParent = NodePath("SubViewportContainer/SubViewport/3D Area/Brushes")
-refMesh = NodePath("SubViewportContainer/SubViewport/3D Area/Brushes/RefCube")
+refCube = ExtResource("2_i5lwb")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_right = 1280.0
@@ -41,7 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.3788, 37.2258, 0)
 light_color = Color(0.94902, 1, 1, 1)
 
 [node name="Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/3D Area"]
-transform = Transform3D(1, 0, 0, 0, 0.999886, -0.0151139, 0, 0.0151139, 0.999886, 0, 1.04427, 8.4614)
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 2, 2, 2)
 environment = SubResource("Environment_qtpei")
 current = true
 fov = 37.8493
@@ -50,13 +61,20 @@ script = ExtResource("3_0wbdk")
 [node name="CameraLight" type="SpotLight3D" parent="SubViewportContainer/SubViewport/3D Area/Camera"]
 spot_range = 30.0
 
-[node name="Brushes" type="Node3D" parent="SubViewportContainer/SubViewport/3D Area"]
+[node name="Crosshair" type="Node3D" parent="SubViewportContainer/SubViewport/3D Area/Camera" node_paths=PackedStringArray("dot", "raycast")]
+script = ExtResource("4_kh5ft")
+dot = NodePath("Dot")
+raycast = NodePath("Pointer")
 
-[node name="RefCube" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/3D Area/Brushes"]
-transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, -0.6182)
-visible = false
-mesh = SubResource("BoxMesh_t04i5")
-skeleton = NodePath("../..")
+[node name="Dot" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/3D Area/Camera/Crosshair"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.96046e-08, -0.32)
+mesh = SubResource("CapsuleMesh_6d2w7")
+
+[node name="Pointer" type="RayCast3D" parent="SubViewportContainer/SubViewport/3D Area/Camera/Crosshair"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, -2.98023e-08, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -100)
+
+[node name="Brushes" type="Node3D" parent="SubViewportContainer/SubViewport/3D Area"]
 
 [node name="Pane Area" type="Area2D" parent="."]
 
@@ -64,5 +82,6 @@ skeleton = NodePath("../..")
 position = Vector2(960, 540)
 shape = SubResource("RectangleShape2D_rrv4i")
 
+[connection signal="TargetUpdated" from="SubViewportContainer/SubViewport/3D Area/Camera/Crosshair" to="." method="TargetUpdatedHandler"]
 [connection signal="mouse_entered" from="Pane Area" to="SubViewportContainer/SubViewport/3D Area/Camera" method="UpdateMouseState" binds= [true]]
 [connection signal="mouse_exited" from="Pane Area" to="SubViewportContainer/SubViewport/3D Area/Camera" method="UpdateMouseState" binds= [false]]

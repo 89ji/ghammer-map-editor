@@ -11,6 +11,8 @@ public partial class BrushSelector : Node2D
 	ItemList brushUI;
 	Dictionary<Brush, int> brush2id = new();
 	public Brush SelectedBrush { get; private set; }
+	[Signal] public delegate void BrushSelectedEventHandler();
+	
 	public override void _Ready()
 	{
 		brushUI = GetNode<ItemList>("Control/ItemList");
@@ -27,7 +29,11 @@ public partial class BrushSelector : Node2D
 			{
 				if (brush2id[brush] == selection[0])
 				{
-					SelectedBrush = brush;
+					if (SelectedBrush != brush)
+					{
+						SelectedBrush = brush;
+						EmitSignal(SignalName.BrushSelected);
+					}
 					break;
 				}
 			}
@@ -70,5 +76,13 @@ public partial class BrushSelector : Node2D
 	{
 		brushUI.RemoveItem(brush2id[brush]);
 		brush2id.Remove(brush);
+	}
+
+	public void ChangeSelection(Brush newSelection)
+	{
+		int newId = brush2id[newSelection];
+		brushUI.Select(newId);
+		SelectedBrush = newSelection;
+		EmitSignal(SignalName.BrushSelected);
 	}
 }
