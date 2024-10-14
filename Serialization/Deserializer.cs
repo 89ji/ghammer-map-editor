@@ -16,7 +16,7 @@ public static class Deserializer
 		if (Path.GetExtension(src) != ".map") throw new Exception("Wrong file format");
 		
 		BrushList brushes = BrushList.Instance;
-		brushes.ClearBrushes();
+		brushes.Clear();
 
 		string mapname;
 
@@ -31,7 +31,7 @@ public static class Deserializer
 					mapname = ReadMapname(tokens[1]);
 					break;
 				case "Brush":
-					brushes.AddBrush(ReadBrush(tokens[1]));
+					brushes.AddMapObject(ReadBrush(tokens[1]));
 					break;
 				default:
 					throw new Exception("Unknown token");	

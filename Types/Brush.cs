@@ -3,22 +3,19 @@ using System.Numerics;
 
 namespace gHammerMapEditor.Types;
 
-public class Brush
+public class Brush : MapObject
 {
-	private readonly Transform transform;
 	public readonly Dictionary<Coord3d, Coord3d> TransformedPoints = new();
 	private readonly RefCube refCube = new();
 
 	public Brush(Transform transform)
 	{
-		this.transform = transform;
 		foreach (var coord in refCube.Vertexes) TransformedPoints.Add(coord, coord);
 		CalculateTransform();
 	}
 
 	public Brush()
 	{
-		transform = new();
 		foreach (var coord in refCube.Vertexes) TransformedPoints.Add(coord, coord);
 		CalculateTransform();
 	}

@@ -19,18 +19,18 @@ public partial class Tests : Node2D
 		GD.Print($"X: {newCrd2.X}, Y: {newCrd2.Y}, z: {newCrd2.Z}");
 
 		BrushList bl = BrushList.Instance;
-		bl.AddBrush(new());
-		bl.AddBrush(new(new (new(5, 10, 15), new (10, 5, 0), new(20, 100, 10))));
-		bl.AddBrush(new(new (null, new (0, -10, 0), new(10, 1, 10))));
-		bl.AddBrush(new(new Transform(null, null, new  Vector3(10, 10, 10))));
+		bl.AddMapObject(new Brush());
+		bl.AddMapObject(new Brush(new (new(5, 10, 15), new (10, 5, 0), new(20, 100, 10))));
+		bl.AddMapObject(new Brush(new (null, new (0, -10, 0), new(10, 1, 10))));
+		bl.AddMapObject(new Brush(new Transform(null, null, new  Vector3(10, 10, 10))));
 
 		string path = @"C:\Users\Jocelyn\Documents\Projects\ghammer-map-editor\exported_data.map";
 		Serializer.SerializeMap(path, bl);
 		
-		bl.ClearBrushes();
+		bl.Clear();
 		
 		Deserializer.DeserializeMap(path);
-		bl.AddBrush(new());
+		bl.AddMapObject(new Brush());
 	}
 
 	public override void _Process(double delta)

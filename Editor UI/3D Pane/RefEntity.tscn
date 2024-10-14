@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://8ri6n41cbl4k"]
+
+[ext_resource type="Script" path="res://Editor UI/3D Pane/RefEntity.cs" id="1_fctv3"]
+[ext_resource type="Texture2D" uid="uid://hr1dom3hwex1" path="res://Resources/Textures/Entity Icons/omnilight.png" id="2_w0x3b"]
+[ext_resource type="Texture2D" uid="uid://db4eu0cjk6bds" path="res://Resources/Textures/Entity Icons/spawnpoint.png" id="3_dnvta"]
+[ext_resource type="Texture2D" uid="uid://dbb8kdestqgu6" path="res://Resources/Textures/Entity Icons/spotlight.png" id="4_v3o5i"]
+[ext_resource type="Texture2D" uid="uid://eey1etyckhuh" path="res://Resources/Textures/Entity Icons/void.png" id="5_3i6eh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h28qr"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="PrismMesh" id="PrismMesh_5aw64"]
+size = Vector3(0.25, 0.5, 0.05)
+
+[node name="RefEntity" type="StaticBody3D" node_paths=PackedStringArray("OLight", "DLight", "Spawn", "Void", "Pointer")]
+script = ExtResource("1_fctv3")
+OLight = NodePath("OLight")
+DLight = NodePath("DLight")
+Spawn = NodePath("Spawn")
+Void = NodePath("Void")
+Pointer = NodePath("Pointer")
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_h28qr")
+
+[node name="OLight" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+billboard = 1
+texture = ExtResource("2_w0x3b")
+
+[node name="DLight" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+billboard = 1
+texture = ExtResource("4_v3o5i")
+
+[node name="Spawn" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+billboard = 1
+texture = ExtResource("3_dnvta")
+
+[node name="Void" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+visible = false
+billboard = 1
+texture = ExtResource("5_3i6eh")
+
+[node name="Pointer" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0.5)
+mesh = SubResource("PrismMesh_5aw64")

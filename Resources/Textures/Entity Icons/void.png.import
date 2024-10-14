@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3dk6ei5ab500"
-path.s3tc="res://.godot/imported/x.png-f0dbbdd56e11ad4215588a1510edaefc.s3tc.ctex"
+uid="uid://eey1etyckhuh"
+path.s3tc="res://.godot/imported/void.png-36aad466be0b8bbecdf70c76c114b32c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Resources/Textures/Buttons/x.png"
-dest_files=["res://.godot/imported/x.png-f0dbbdd56e11ad4215588a1510edaefc.s3tc.ctex"]
+source_file="res://Resources/Textures/Entity Icons/void.png"
+dest_files=["res://.godot/imported/void.png-36aad466be0b8bbecdf70c76c114b32c.s3tc.ctex"]
 
 [params]
 

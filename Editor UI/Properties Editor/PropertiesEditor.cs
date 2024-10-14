@@ -18,7 +18,7 @@ public partial class PropertiesEditor : Node2D
 	[Export] LineEdit scaleZ;
 	
 	BrushList brushList = BrushList.Instance;
-	Brush currentBrush;
+	MapObject currentBrush;
 	
 	public override void _Ready()
 	{
@@ -82,7 +82,7 @@ public partial class PropertiesEditor : Node2D
 		transX.Editable = true;
 	}
 
-	public void UpdateBrush(Brush newBrush)
+	public void UpdateBrush(MapObject newBrush)
 	{
 		currentBrush = newBrush;
 		if (currentBrush == null) ClearEntries();

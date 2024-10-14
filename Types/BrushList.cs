@@ -4,37 +4,27 @@ using System.Linq;
 
 namespace gHammerMapEditor.Types;
 
-public class BrushList : IEnumerable<Brush>
+public class BrushList : IEnumerable<MapObject>
 {
 	public static readonly BrushList Instance = new();
-	List<Brush> brushes = new();
+	List<MapObject> brushes = new();
 
 	private BrushList()
 	{
 	}
 
-	public void AddBrush(Brush brush)
+	public void AddMapObject(MapObject brush)
 	{
 		brushes.Add(brush);
 	}
 
-	public void DeleteBrush(Brush brush)
+	public void DeleteMapObject(MapObject brush)
 	{
 		brushes.Remove(brush);
 	}
 
-	public IEnumerator<Brush> GetEnumerator()
-	{
-		return brushes.GetEnumerator();
-	}
+	public IEnumerator<MapObject> GetEnumerator() =>  brushes.GetEnumerator();
+	IEnumerator IEnumerable.GetEnumerator() => brushes.GetEnumerator();
+	public void Clear() => brushes.Clear();
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return brushes.GetEnumerator();
-	}
-
-	public void ClearBrushes()
-	{
-		brushes.Clear();
-	}
 }

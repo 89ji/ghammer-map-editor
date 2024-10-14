@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://uch8yh7yjhef"]
+[gd_scene load_steps=13 format=3 uid="uid://uch8yh7yjhef"]
 
 [ext_resource type="Script" path="res://Editor UI/3D Pane/Pane3D.cs" id="1_fvokm"]
 [ext_resource type="PackedScene" uid="uid://cpp10b2pbmmw1" path="res://Editor UI/3D Pane/RefCube.tscn" id="2_i5lwb"]
 [ext_resource type="Texture2D" uid="uid://caqpqtr15qetg" path="res://Resources/Textures/Skyboxes/1920px-Sky_well_01.jpg" id="2_sbyfr"]
 [ext_resource type="Script" path="res://Editor UI/3D Pane/CameraManager3D.cs" id="3_0wbdk"]
+[ext_resource type="PackedScene" uid="uid://8ri6n41cbl4k" path="res://Editor UI/3D Pane/RefEntity.tscn" id="3_x01ho"]
 [ext_resource type="Script" path="res://Editor UI/3D Pane/Crosshair.cs" id="4_kh5ft"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6o1bm"]
@@ -35,6 +36,7 @@ size = Vector2(1920, 1080)
 script = ExtResource("1_fvokm")
 BrushParent = NodePath("SubViewportContainer/SubViewport/3D Area/Brushes")
 refCube = ExtResource("2_i5lwb")
+refEntity = ExtResource("3_x01ho")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_right = 1280.0

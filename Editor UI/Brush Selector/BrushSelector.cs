@@ -9,8 +9,8 @@ public partial class BrushSelector : Node2D
 {
 	BrushList brushList = BrushList.Instance;
 	ItemList brushUI;
-	Dictionary<Brush, int> brush2id = new();
-	public Brush SelectedBrush { get; private set; }
+	Dictionary<MapObject, int> brush2id = new();
+	public MapObject SelectedBrush { get; private set; }
 	[Signal] public delegate void BrushSelectedEventHandler();
 	
 	public override void _Ready()
@@ -31,6 +31,7 @@ public partial class BrushSelector : Node2D
 				{
 					if (SelectedBrush != brush)
 					{
+						
 						SelectedBrush = brush;
 						EmitSignal(SignalName.BrushSelected);
 					}
@@ -43,7 +44,7 @@ public partial class BrushSelector : Node2D
 	
 	private void Refresh()
 	{
-		List<Brush> oldBrushList = brush2id.Keys.ToList();
+		List<MapObject> oldBrushList = brush2id.Keys.ToList();
 		
 		foreach (var brush in brushList)
 		{
@@ -55,30 +56,30 @@ public partial class BrushSelector : Node2D
 
 
 			// Brush is new
-			else AddBrushToList(brush);
+			else AddObjectToList(brush);
 		}
 		
 		// Cleanup old brushes
 		foreach (var brush in oldBrushList)
 		{
 			if(SelectedBrush == brush) SelectedBrush = null;
-			RemoveBrushFromList(brush);
+			RemoveObjectFromList(brush);
 		}
 	}
 
-	void AddBrushToList(Brush brush)
+	void AddObjectToList(MapObject brush)
 	{
 		var idx = brushUI.AddItem(brush.GetScale.X.ToString());
 		brush2id.Add(brush, idx);
 	}
 
-	void RemoveBrushFromList(Brush brush)
+	void RemoveObjectFromList(MapObject brush)
 	{
 		brushUI.RemoveItem(brush2id[brush]);
 		brush2id.Remove(brush);
 	}
 
-	public void ChangeSelection(Brush newSelection)
+	public void ChangeSelection(MapObject newSelection)
 	{
 		int newId = brush2id[newSelection];
 		brushUI.Select(newId);

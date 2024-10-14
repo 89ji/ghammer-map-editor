@@ -9,12 +9,13 @@ public partial class Pane3D : Node2D
 {
 	[Export] Node3D BrushParent;
 	[Export] PackedScene refCube;
-	Dictionary<Brush, Node3D> brush2mesh = new();
+	[Export] PackedScene refEntity;
+	Dictionary<MapObject, Node3D> brush2mesh = new();
 	BrushList brushList;
 	
 	[Signal] public delegate void TargetUpdatedEventHandler();
 	Crosshair crossMan;
-	public Brush lookingBrush;
+	public MapObject lookingBrush;
 	
 	public override void _Ready()
 	{
@@ -29,18 +30,31 @@ public partial class Pane3D : Node2D
 		Refresh();
 	}
 
-	public void NotifyAddBrush(Brush b)
+	public void NotifyAddBrush(MapObject b)
 	{
 		if(brush2mesh.ContainsKey(b)) throw new Exception("Brush already added!");
+		Node3D obj;
 
-		var mesh = refCube.Instantiate<Node3D>();
-		mesh.Transform = b.GetTransform().ToGDTransform();
-		mesh.Visible = true;
-		BrushParent.AddChild(mesh);
-		brush2mesh.Add(b, mesh);
+		switch (b)
+		{
+			case Brush brush:
+				obj = refCube.Instantiate<Node3D>();
+				break;
+			case Entity entity:
+				obj = refEntity.Instantiate<Node3D>();
+				((RefEntity)obj).SetEntityType(entity.Type);
+				break;
+			default:
+				throw new Exception("Unknown mapobj type!");
+		}
+		
+		obj.Transform = b.GetTransform().ToGDTransform();
+		obj.Visible = true;
+		BrushParent.AddChild(obj);
+		brush2mesh.Add(b, obj);
 	}
 
-	public void NotifyDelBrush(Brush b)
+	public void NotifyDelBrush(MapObject b)
 	{
 		if(!brush2mesh.ContainsKey(b)) throw new Exception("Brush doesn't exist!");
 		var mesh = brush2mesh[b];
@@ -50,7 +64,7 @@ public partial class Pane3D : Node2D
 
 	private void Refresh()
 	{
-		List<Brush> oldBrushList = brush2mesh.Keys.ToList();
+		List<MapObject> oldBrushList = brush2mesh.Keys.ToList();
 		
 		foreach (var brush in brushList)
 		{
