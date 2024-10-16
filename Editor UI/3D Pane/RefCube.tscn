@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpp10b2pbmmw1"]
+[gd_scene load_steps=6 format=3 uid="uid://cpp10b2pbmmw1"]
 
+[ext_resource type="Script" path="res://Editor UI/3D Pane/RefCube.cs" id="1_2did3"]
 [ext_resource type="Shader" path="res://Resources/Highlight.gdshader" id="1_5iv0o"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_t04i5"]
@@ -7,8 +8,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5tlye"]
 render_priority = 0
 shader = ExtResource("1_5iv0o")
-shader_parameter/shine_color = Color(0.392157, 1, 0.392157, 1)
-shader_parameter/cycle_interval = 2.5
+shader_parameter/shine_color = Color(0.329908, 0.912816, 0.911947, 1)
+shader_parameter/cycle_interval = 2.0
 shader_parameter/shine_speed = 1.0
 shader_parameter/shine_width = 5.0
 shader_parameter/shine_angle_x = -90.0
@@ -17,7 +18,8 @@ shader_parameter/shine_angle_z = 15.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qoyyu"]
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[node name="Ref Cube" type="StaticBody3D"]
+script = ExtResource("1_2did3")
 
 [node name="Sheen" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_t04i5")

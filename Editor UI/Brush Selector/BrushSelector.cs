@@ -31,8 +31,7 @@ public partial class BrushSelector : Node2D
 				{
 					if (SelectedBrush != brush)
 					{
-						
-						SelectedBrush = brush;
+						ChangeSelection(brush);
 						EmitSignal(SignalName.BrushSelected);
 					}
 					break;
@@ -83,7 +82,10 @@ public partial class BrushSelector : Node2D
 	{
 		int newId = brush2id[newSelection];
 		brushUI.Select(newId);
-		SelectedBrush = newSelection;
+
+		SelectedBrush?.OnDeselect();
+	    SelectedBrush = newSelection;
+		SelectedBrush.OnSelect();
 		EmitSignal(SignalName.BrushSelected);
 	}
 }
