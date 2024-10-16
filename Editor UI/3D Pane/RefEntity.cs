@@ -1,9 +1,10 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using gHammerMapEditor.Editor_UI._3D_Pane;
 using gHammerMapEditor.Enums;
 
-public partial class RefEntity : StaticBody3D
+public partial class RefEntity : StaticBody3D, ISelectable
 {
 	[Export] Sprite3D OLight;
 	[Export] Sprite3D DLight;
@@ -18,8 +19,6 @@ public partial class RefEntity : StaticBody3D
 		CurrentTime += delta;
 		Pointer.RotateObjectLocal(Vector3.Up, (float)(delta * 3));
 		Pointer.Position = new Vector3(0, 0, (float)(.1f * Mathf.Sin(CurrentTime * 4) + .75f));
-			
-			
 	}
 
 	public void SetEntityType(EntityType entityType)
@@ -44,5 +43,15 @@ public partial class RefEntity : StaticBody3D
 			default:
 				throw new ArgumentOutOfRangeException(nameof(entityType), entityType, null);
 		}
+	}
+
+	public void Select()
+	{
+		Pointer.Show();
+	}
+
+	public void Deselect()
+	{
+		Pointer.Hide();
 	}
 }

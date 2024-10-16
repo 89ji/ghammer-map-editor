@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using gHammerMapEditor.Editor_UI._3D_Pane;
 using gHammerMapEditor.Types;
 using gHammerMapEditor.Util;
 
@@ -39,10 +40,12 @@ public partial class Pane3D : Node2D
 		{
 			case Brush brush:
 				obj = refCube.Instantiate<Node3D>();
+				brush.mapObj = (ISelectable)obj;
 				break;
 			case Entity entity:
 				obj = refEntity.Instantiate<Node3D>();
 				((RefEntity)obj).SetEntityType(entity.Type);
+				entity.mapObj = (ISelectable)obj;
 				break;
 			default:
 				throw new Exception("Unknown mapobj type!");

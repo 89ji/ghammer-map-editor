@@ -3,7 +3,7 @@ using System;
 
 public partial class Crosshair : Node3D
 {
-	[Export] MeshInstance3D dot;
+	[Export] Node3D dot;
 	[Export] RayCast3D raycast;
 	Camera3D parent;
 	bool Enabled;

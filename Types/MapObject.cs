@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using gHammerMapEditor.Editor_UI._3D_Pane;
+using Godot;
 
 namespace gHammerMapEditor.Types;
 
@@ -7,6 +9,7 @@ using System.Numerics;
 public abstract class MapObject
 {
 	public readonly Transform transform;
+	public ISelectable mapObj;
 
 	public MapObject(Transform transform)
 	{

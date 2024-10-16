@@ -8,15 +8,23 @@ public static class Serializer
 {
 	// Turns a brushlist and other stuff into a text file
 	// Dest is the folder, name is the name of file, .map is added automatically
-	public static void SerializeMap(string dest, BrushList brushes)
+	public static void SerializeMap(string dest, BrushList mapObjects)
 	{
 		StringBuilder sb = new();
 		
 		string mapname = "The name of the map goes here";
 		sb.Append($"Mapname: {mapname}\n");
-		foreach (var brush in brushes)
+		foreach (var mapObj in mapObjects)
 		{
-			sb.Append($"Brush: {brush.GetTranslate} {brush.GetRotation} {brush.GetScale}\n");
+			switch (mapObj)
+			{
+				case Brush b:
+					sb.Append($"Brush: {b.GetTranslate} {b.GetRotation} {b.GetScale}\n");
+					break;
+				case Entity e:
+					sb.Append($"Entity: {e.GetTranslate} {e.GetRotation} {e.GetScale}\n");
+					break;
+			}
 		}
 
 		using StreamWriter sw = new(dest);

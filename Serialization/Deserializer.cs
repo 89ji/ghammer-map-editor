@@ -33,6 +33,9 @@ public static class Deserializer
 				case "Brush":
 					brushes.AddMapObject(ReadBrush(tokens[1]));
 					break;
+				case "Entity":
+					brushes.AddMapObject(ReadEnt(tokens[1]));
+					break;
 				default:
 					throw new Exception("Unknown token");	
 			}
@@ -54,5 +57,20 @@ public static class Deserializer
 		System.Numerics.Vector3 scale = new(numbers[6].ToFloat(), numbers[7].ToFloat(), numbers[8].ToFloat());
 		
 		return new Brush(new Transform(translation, rotation, scale));
+	}
+
+	static Entity ReadEnt(string line)
+	{
+		line = line.Trim().Replace("<", "").Replace(">", "").Replace(",", "");
+		var numbers = line.Split(' ');
+		
+		System.Numerics.Vector3? translation = new(numbers[0].ToFloat(), numbers[1].ToFloat(), numbers[2].ToFloat());
+		System.Numerics.Vector3 rotation = new(numbers[3].ToFloat(), numbers[4].ToFloat(), numbers[5].ToFloat());
+		System.Numerics.Vector3 scale = new(numbers[6].ToFloat(), numbers[7].ToFloat(), numbers[8].ToFloat());
+		
+		var ret = new Entity(Enums.EntityType.DirectLight);
+		ret.TranslateTo(translation.Value);
+		ret.RotateTo(rotation);
+		return ret;
 	}
 }

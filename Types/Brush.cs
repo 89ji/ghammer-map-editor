@@ -101,12 +101,13 @@ public class Brush : MapObject
 	public Transform GetTransform() => transform;
 	public override void OnSelect()
 	{
-		refCube
-		throw new System.NotImplementedException();
+		var mesh = (RefBox)mapObj;
+		mesh.Select();
 	}
 
 	public override void OnDeselect()
 	{
-		throw new System.NotImplementedException();
+		var mesh = (RefBox)mapObj;
+		mesh.Deselect();
 	}
 }
