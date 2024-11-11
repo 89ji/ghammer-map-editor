@@ -121,7 +121,9 @@ public class Transform
                 sin, cos, 0, 0,
                 0, 0, 1, 0,
                 0, 0, 0, 1
-            )
+            ),
+            _ => throw new NotImplementedException()
+
         };
     }
 

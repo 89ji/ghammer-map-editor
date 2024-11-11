@@ -40,37 +40,37 @@ public class Brush : MapObject
 		}
 	}
 	
-	public void TranslateBy(Vector3 translation)
+	public new void TranslateBy(Vector3 translation)
 	{
 		transform.TranslateBy(translation);
 		CalculateTransform();
 	}
 
-	public void RotateBy(Vector3 rotate)
+	public new void RotateBy(Vector3 rotate)
 	{
 		transform.RotateBy(rotate);
 		CalculateTransform();
 	}
 
-	public void ScaleBy(Vector3 scale)
+	public new void ScaleBy(Vector3 scale)
 	{
 		transform.ScaleBy(scale);
 		CalculateTransform();
 	}
 
-	public void TranslateTo(Vector3 translation)
+	public new void TranslateTo(Vector3 translation)
 	{
 		transform.TranslateTo(translation);
 		CalculateTransform();
 	}
 	
-	public void RotateTo(Vector3 rotate)
+	public new void RotateTo(Vector3 rotate)
 	{
 		transform.RotateTo(rotate);
 		CalculateTransform();
 	}
 
-	public void ScaleTo(Vector3 scale)
+	public new void ScaleTo(Vector3 scale)
 	{
 		transform.ScaleTo(scale);
 		CalculateTransform();
@@ -92,9 +92,6 @@ public class Brush : MapObject
 		return normals;
 	}
 	
-	public Vector3 GetTranslate => transform.Translation;
-	public Vector3 GetRotation => transform.Rotation;
-	public Vector3 GetScale => transform.Scale;
 	public Coord3d GetCentroid()
 	{
 		float X = 0;
@@ -109,7 +106,6 @@ public class Brush : MapObject
 		return new Coord3d(X/8, Y/8, Z/8);
 	}
 
-	public Transform GetTransform() => transform;
 	public override void OnSelect()
 	{
 		return;

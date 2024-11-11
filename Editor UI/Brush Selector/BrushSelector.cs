@@ -69,10 +69,11 @@ public partial class BrushSelector : Node2D
 	void AddObjectToList(MapObject brush)
 	{
 		string EntryName = brush switch
-		{
-			Brush b => "Brush",
-			Entity e => (e.Type == gHammerMapEditor.Enums.EntityType.OmniLight) ? "Light" : "Spotlight"
-		};
+        {
+            Brush b => "Brush",
+            Entity e => (e.Type == gHammerMapEditor.Enums.EntityType.OmniLight) ? "Light" : "Spotlight",
+            _ => throw new NotImplementedException()
+        };
 		var idx = brushUI.AddItem(EntryName);
 		brush2id.Add(brush, idx);
 	}
