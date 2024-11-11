@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ca561sqt7wn4x"]
+
+[ext_resource type="Texture2D" uid="uid://omr2c0cphaan" path="res://Resources/Materials/ceiling.jpg" id="1_hpi4u"]
+[ext_resource type="Texture2D" uid="uid://3e27wi4dqha2" path="res://Resources/Materials/ceiling spec.jpg" id="2_sqdek"]
+
+[resource]
+albedo_texture = ExtResource("1_hpi4u")
+metallic = 1.0
+metallic_texture = ExtResource("2_sqdek")
+metallic_texture_channel = 4

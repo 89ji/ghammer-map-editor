@@ -25,11 +25,13 @@ public class Entity : MapObject
 
 	public override void OnSelect()
 	{
+		return;
 		throw new System.NotImplementedException();
 	}
 
 	public override void OnDeselect()
 	{
+		return;
 		throw new System.NotImplementedException();
 	}
 }

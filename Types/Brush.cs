@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Numerics;
+using gHammerMapEditor.Enums;
 
 namespace gHammerMapEditor.Types;
 
@@ -7,9 +8,19 @@ public class Brush : MapObject
 {
 	public readonly Dictionary<Coord3d, Coord3d> TransformedPoints = new();
 	private readonly RefCube refCube = new();
+	public readonly Textures texture = Textures.Crate;
 
 	public Brush(Transform transform)
 	{
+		this.transform = transform;
+		foreach (var coord in refCube.Vertexes) TransformedPoints.Add(coord, coord);
+		CalculateTransform();
+	}
+
+	public Brush(Transform transform, Textures tex)
+	{
+		this.transform = transform;
+		texture = tex;
 		foreach (var coord in refCube.Vertexes) TransformedPoints.Add(coord, coord);
 		CalculateTransform();
 	}
@@ -101,12 +112,13 @@ public class Brush : MapObject
 	public Transform GetTransform() => transform;
 	public override void OnSelect()
 	{
-		refCube
+		return;
 		throw new System.NotImplementedException();
 	}
 
 	public override void OnDeselect()
 	{
+		return;
 		throw new System.NotImplementedException();
 	}
 }

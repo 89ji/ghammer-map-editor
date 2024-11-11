@@ -20,6 +20,10 @@ public partial class PropertiesEditor : Node2D
 	BrushList brushList = BrushList.Instance;
 	MapObject currentBrush;
 	
+	Vector3 oldTrans;
+	Vector3 oldRot;
+	Vector3 oldScale;
+	
 	public override void _Ready()
 	{
 
@@ -27,7 +31,7 @@ public partial class PropertiesEditor : Node2D
 	
 	public override void _Process(double delta)
 	{
-		UpdateValues();
+		//UpdateValues();
 	}
 
 	void LoadValues()
@@ -49,6 +53,7 @@ public partial class PropertiesEditor : Node2D
 		scaleZ.Text = scale.Z.ToString();
 	}
 	
+	// TODO Find a way to maintain both the nudge buttons and manual input
 	void UpdateValues()
 	{
 		if (currentBrush == null) return;
@@ -58,14 +63,18 @@ public partial class PropertiesEditor : Node2D
 			System.Numerics.Vector3 editorRot = new (rotX.Text.ToFloat().toRad(), rotY.Text.ToFloat().toRad(), rotZ.Text.ToFloat().toRad());
 			System.Numerics.Vector3 editorScale = new (scaleX.Text.ToFloat(), scaleY.Text.ToFloat(), scaleZ.Text.ToFloat());
 			
-			currentBrush.TranslateTo(editorTrans);
-			currentBrush.RotateTo(editorRot);
-			currentBrush.ScaleTo(editorScale);
+			Vector3 gTrans = editorTrans.ToGDVec3();
+			Vector3 gRot = editorRot.ToGDVec3();
+			Vector3 gScale = editorScale.ToGDVec3();
+
+			if(gTrans == oldTrans || gRot == oldRot || gScale == oldScale)
+			{
+				currentBrush.TranslateTo(editorTrans);
+				currentBrush.RotateTo(editorRot);
+				currentBrush.ScaleTo(editorScale);
+			}
 		}
-		catch
-		{
-			
-		}
+		catch {}
 	}
 
 	void ClearEntries()

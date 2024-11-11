@@ -1,16 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://6bixuooicr5l"]
+[gd_scene load_steps=5 format=3 uid="uid://6bixuooicr5l"]
 
 [ext_resource type="Script" path="res://Editor UI/Full Panes/EditorPane.cs" id="1_aproy"]
 [ext_resource type="PackedScene" uid="uid://uch8yh7yjhef" path="res://Editor UI/3D Pane/3D Pane.tscn" id="2_d1l3i"]
 [ext_resource type="PackedScene" uid="uid://s53gb00i46v1" path="res://Editor UI/Brush Selector/Brush Selector.tscn" id="3_shr1c"]
 [ext_resource type="PackedScene" uid="uid://car7q4ortt5nl" path="res://Editor UI/Properties Editor/Properties Editor.tscn" id="4_cpnbk"]
-[ext_resource type="PackedScene" uid="uid://bf6mimnh4vv32" path="res://Editor UI/Brush Buttons/Brush Buttons.tscn" id="5_jnlde"]
 
 [node name="EditorPane" type="Node2D" node_paths=PackedStringArray("View", "selector", "properties")]
 script = ExtResource("1_aproy")
 View = NodePath("3D Pane")
 selector = NodePath("BrushSelector")
 properties = NodePath("PropertiesEditor")
+
+[node name="Open Dialog" type="FileDialog" parent="."]
+title = "Open a File"
+position = Vector2i(630, 50)
+size = Vector2i(600, 600)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
 
 [node name="3D Pane" parent="." instance=ExtResource("2_d1l3i")]
 position = Vector2(-1280, -650)
@@ -25,9 +32,274 @@ scale = Vector2(0.8, 0.8)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
 
-[node name="BrushButtons" parent="." instance=ExtResource("5_jnlde")]
-position = Vector2(944, -692)
+[node name="New Brush" type="Button" parent="."]
+offset_left = 1055.0
+offset_top = -652.0
+offset_right = 1221.0
+offset_bottom = -610.0
+theme_override_font_sizes/font_size = 24
+text = "New Brush"
 
+[node name="New OmniLight" type="Button" parent="."]
+offset_left = 1055.0
+offset_top = -599.0
+offset_right = 1221.0
+offset_bottom = -557.0
+theme_override_font_sizes/font_size = 24
+text = "New Light"
+
+[node name="New Spotlight" type="Button" parent="."]
+offset_left = 1055.0
+offset_top = -548.0
+offset_right = 1221.0
+offset_bottom = -506.0
+theme_override_font_sizes/font_size = 24
+text = "New Spotlight"
+
+[node name="Delete" type="Button" parent="."]
+offset_left = 1055.0
+offset_top = -497.0
+offset_right = 1221.0
+offset_bottom = -455.0
+theme_override_font_sizes/font_size = 24
+text = "Delete"
+
+[node name="Duplicate" type="Button" parent="."]
+offset_left = 1055.0
+offset_top = -445.0
+offset_right = 1221.0
+offset_bottom = -403.0
+theme_override_font_sizes/font_size = 24
+text = "Duplicate"
+
+[node name="Save" type="Button" parent="."]
+offset_left = -1276.0
+offset_top = -716.0
+offset_right = -1091.0
+offset_bottom = -655.0
+theme_override_font_sizes/font_size = 24
+text = "Save"
+
+[node name="Load" type="Button" parent="."]
+offset_left = -1086.0
+offset_top = -716.0
+offset_right = -901.0
+offset_bottom = -655.0
+theme_override_font_sizes/font_size = 24
+text = "Load"
+
+[node name="Reload" type="Button" parent="."]
+offset_left = -896.0
+offset_top = -716.0
+offset_right = -711.0
+offset_bottom = -655.0
+theme_override_font_sizes/font_size = 24
+text = "Reload"
+
+[node name="Nudger" type="Node2D" parent="."]
+
+[node name="Nudge Label" type="RichTextLabel" parent="Nudger"]
+offset_left = 651.0
+offset_top = 17.0
+offset_right = 806.0
+offset_bottom = 60.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Nudge By:"
+
+[node name="NudgeBy" type="LineEdit" parent="Nudger"]
+offset_left = 778.0
+offset_top = 16.0
+offset_right = 858.0
+offset_bottom = 56.0
+text = "1"
+placeholder_text = "amd"
+alignment = 1
+
+[node name="Translate Label" type="RichTextLabel" parent="Nudger"]
+offset_left = 651.0
+offset_top = 70.0
+offset_right = 806.0
+offset_bottom = 113.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Translate"
+
+[node name="Rotate Label" type="RichTextLabel" parent="Nudger"]
+offset_left = 651.0
+offset_top = 130.0
+offset_right = 806.0
+offset_bottom = 173.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Rotate"
+
+[node name="Scale Label" type="RichTextLabel" parent="Nudger"]
+offset_left = 651.0
+offset_top = 192.0
+offset_right = 806.0
+offset_bottom = 235.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Scale"
+
+[node name="Translators" type="Node2D" parent="Nudger"]
+
+[node name="PX" type="Button" parent="Nudger/Translators"]
+offset_left = 778.0
+offset_top = 63.0
+offset_right = 858.0
+offset_bottom = 123.0
+text = "+X"
+
+[node name="NX" type="Button" parent="Nudger/Translators"]
+offset_left = 858.0
+offset_top = 63.0
+offset_right = 938.0
+offset_bottom = 123.0
+text = "-X"
+
+[node name="PY" type="Button" parent="Nudger/Translators"]
+offset_left = 938.0
+offset_top = 63.0
+offset_right = 1018.0
+offset_bottom = 123.0
+text = "+Y"
+
+[node name="NY" type="Button" parent="Nudger/Translators"]
+offset_left = 1018.0
+offset_top = 63.0
+offset_right = 1098.0
+offset_bottom = 123.0
+text = "-Y"
+
+[node name="PZ" type="Button" parent="Nudger/Translators"]
+offset_left = 1098.0
+offset_top = 63.0
+offset_right = 1178.0
+offset_bottom = 123.0
+text = "+Z"
+
+[node name="NZ" type="Button" parent="Nudger/Translators"]
+offset_left = 1178.0
+offset_top = 63.0
+offset_right = 1258.0
+offset_bottom = 123.0
+text = "-Z"
+
+[node name="Rotators" type="Node2D" parent="Nudger"]
+position = Vector2(0, 60)
+
+[node name="PX" type="Button" parent="Nudger/Rotators"]
+offset_left = 778.0
+offset_top = 63.0
+offset_right = 858.0
+offset_bottom = 123.0
+text = "+X"
+
+[node name="NX" type="Button" parent="Nudger/Rotators"]
+offset_left = 858.0
+offset_top = 63.0
+offset_right = 938.0
+offset_bottom = 123.0
+text = "-X"
+
+[node name="PY" type="Button" parent="Nudger/Rotators"]
+offset_left = 938.0
+offset_top = 63.0
+offset_right = 1018.0
+offset_bottom = 123.0
+text = "+Y"
+
+[node name="NY" type="Button" parent="Nudger/Rotators"]
+offset_left = 1018.0
+offset_top = 63.0
+offset_right = 1098.0
+offset_bottom = 123.0
+text = "-Y"
+
+[node name="PZ" type="Button" parent="Nudger/Rotators"]
+offset_left = 1098.0
+offset_top = 63.0
+offset_right = 1178.0
+offset_bottom = 123.0
+text = "+Z"
+
+[node name="NZ" type="Button" parent="Nudger/Rotators"]
+offset_left = 1178.0
+offset_top = 63.0
+offset_right = 1258.0
+offset_bottom = 123.0
+text = "-Z"
+
+[node name="Scalers" type="Node2D" parent="Nudger"]
+position = Vector2(0, 119.72)
+
+[node name="PX" type="Button" parent="Nudger/Scalers"]
+offset_left = 778.0
+offset_top = 63.0
+offset_right = 858.0
+offset_bottom = 123.0
+text = "+X"
+
+[node name="NX" type="Button" parent="Nudger/Scalers"]
+offset_left = 858.0
+offset_top = 63.0
+offset_right = 938.0
+offset_bottom = 123.0
+text = "-X"
+
+[node name="PY" type="Button" parent="Nudger/Scalers"]
+offset_left = 938.0
+offset_top = 63.0
+offset_right = 1018.0
+offset_bottom = 123.0
+text = "+Y"
+
+[node name="NY" type="Button" parent="Nudger/Scalers"]
+offset_left = 1018.0
+offset_top = 63.0
+offset_right = 1098.0
+offset_bottom = 123.0
+text = "-Y"
+
+[node name="PZ" type="Button" parent="Nudger/Scalers"]
+offset_left = 1098.0
+offset_top = 63.0
+offset_right = 1178.0
+offset_bottom = 123.0
+text = "+Z"
+
+[node name="NZ" type="Button" parent="Nudger/Scalers"]
+offset_left = 1178.0
+offset_top = 63.0
+offset_right = 1258.0
+offset_bottom = 123.0
+text = "-Z"
+
+[connection signal="file_selected" from="Open Dialog" to="." method="LoadMap"]
 [connection signal="TargetUpdated" from="3D Pane" to="." method="OnTargetUpdatedHandler"]
 [connection signal="BrushSelected" from="BrushSelector" to="." method="OnNewBrushSelected"]
-[connection signal="ButtonPressed" from="BrushButtons" to="." method="ButtonPressed"]
+[connection signal="button_down" from="New Brush" to="." method="AddBrush"]
+[connection signal="button_down" from="New OmniLight" to="." method="AddLight"]
+[connection signal="button_down" from="New Spotlight" to="." method="AddSpotlight"]
+[connection signal="button_down" from="Delete" to="." method="Delete"]
+[connection signal="button_down" from="Duplicate" to="." method="Duplicate"]
+[connection signal="button_down" from="Save" to="." method="SaveMap"]
+[connection signal="button_down" from="Load" to="Open Dialog" method="show"]
+[connection signal="button_down" from="Reload" to="." method="ReloadMap"]
+[connection signal="text_submitted" from="Nudger/NudgeBy" to="." method="AdjustNudge"]
+[connection signal="button_down" from="Nudger/Translators/PX" to="." method="TransBy" binds= [0, false]]
+[connection signal="button_down" from="Nudger/Translators/NX" to="." method="TransBy" binds= [0, true]]
+[connection signal="button_down" from="Nudger/Translators/PY" to="." method="TransBy" binds= [1, false]]
+[connection signal="button_down" from="Nudger/Translators/NY" to="." method="TransBy" binds= [1, true]]
+[connection signal="button_down" from="Nudger/Translators/PZ" to="." method="TransBy" binds= [2, false]]
+[connection signal="button_down" from="Nudger/Translators/NZ" to="." method="TransBy" binds= [2, true]]
+[connection signal="button_down" from="Nudger/Rotators/PX" to="." method="RotBy" binds= [0, false]]
+[connection signal="button_down" from="Nudger/Rotators/NX" to="." method="RotBy" binds= [0, true]]
+[connection signal="button_down" from="Nudger/Rotators/PY" to="." method="RotBy" binds= [1, false]]
+[connection signal="button_down" from="Nudger/Rotators/NY" to="." method="RotBy" binds= [1, true]]
+[connection signal="button_down" from="Nudger/Rotators/PZ" to="." method="RotBy" binds= [2, false]]
+[connection signal="button_down" from="Nudger/Rotators/NZ" to="." method="RotBy" binds= [2, true]]
+[connection signal="button_down" from="Nudger/Scalers/PX" to="." method="ScaleBy" binds= [0, false]]
+[connection signal="button_down" from="Nudger/Scalers/NX" to="." method="ScaleBy" binds= [0, true]]
+[connection signal="button_down" from="Nudger/Scalers/PY" to="." method="ScaleBy" binds= [1, false]]
+[connection signal="button_down" from="Nudger/Scalers/NY" to="." method="ScaleBy" binds= [1, true]]
+[connection signal="button_down" from="Nudger/Scalers/PZ" to="." method="ScaleBy" binds= [2, false]]
+[connection signal="button_down" from="Nudger/Scalers/NZ" to="." method="ScaleBy" binds= [2, true]]

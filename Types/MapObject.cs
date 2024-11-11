@@ -6,7 +6,7 @@ using System.Numerics;
 
 public abstract class MapObject
 {
-	public readonly Transform transform;
+	public Transform transform;
 
 	public MapObject(Transform transform)
 	{

@@ -68,7 +68,12 @@ public partial class BrushSelector : Node2D
 
 	void AddObjectToList(MapObject brush)
 	{
-		var idx = brushUI.AddItem(brush.GetScale.X.ToString());
+		string EntryName = brush switch
+		{
+			Brush b => "Brush",
+			Entity e => (e.Type == gHammerMapEditor.Enums.EntityType.OmniLight) ? "Light" : "Spotlight"
+		};
+		var idx = brushUI.AddItem(EntryName);
 		brush2id.Add(brush, idx);
 	}
 
@@ -84,8 +89,14 @@ public partial class BrushSelector : Node2D
 		brushUI.Select(newId);
 
 		SelectedBrush?.OnDeselect();
-	    SelectedBrush = newSelection;
+		SelectedBrush = newSelection;
 		SelectedBrush.OnSelect();
 		EmitSignal(SignalName.BrushSelected);
+	}
+
+	public void Reset()
+	{
+		brush2id.Clear();
+		brushUI.Clear();
 	}
 }

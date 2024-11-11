@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dan3eb3c383v8"]
+
+[ext_resource type="Texture2D" uid="uid://bp2xlke3mmp0f" path="res://Resources/Materials/outer tile.png" id="1_0v4fr"]
+[ext_resource type="Texture2D" uid="uid://gsqyu11s26vb" path="res://Resources/Materials/outer tile spec.png" id="2_i3fhh"]
+
+[resource]
+albedo_texture = ExtResource("1_0v4fr")
+metallic = 1.0
+metallic_texture = ExtResource("2_i3fhh")

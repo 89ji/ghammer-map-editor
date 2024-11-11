@@ -1,22 +1,31 @@
-[gd_scene load_steps=13 format=3 uid="uid://uch8yh7yjhef"]
+[gd_scene load_steps=14 format=3 uid="uid://uch8yh7yjhef"]
 
 [ext_resource type="Script" path="res://Editor UI/3D Pane/Pane3D.cs" id="1_fvokm"]
 [ext_resource type="PackedScene" uid="uid://cpp10b2pbmmw1" path="res://Editor UI/3D Pane/RefCube.tscn" id="2_i5lwb"]
-[ext_resource type="Texture2D" uid="uid://caqpqtr15qetg" path="res://Resources/Textures/Skyboxes/1920px-Sky_well_01.jpg" id="2_sbyfr"]
 [ext_resource type="Script" path="res://Editor UI/3D Pane/CameraManager3D.cs" id="3_0wbdk"]
 [ext_resource type="PackedScene" uid="uid://8ri6n41cbl4k" path="res://Editor UI/3D Pane/RefEntity.tscn" id="3_x01ho"]
 [ext_resource type="Script" path="res://Editor UI/3D Pane/Crosshair.cs" id="4_kh5ft"]
+[ext_resource type="PackedScene" uid="uid://sekuaexp681b" path="res://Resources/mat_man.tscn" id="4_ts85b"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6o1bm"]
-sky_cover = ExtResource("2_sbyfr")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8y62m"]
 
-[sub_resource type="Sky" id="Sky_mbgwu"]
-sky_material = SubResource("ProceduralSkyMaterial_6o1bm")
+[sub_resource type="Sky" id="Sky_66qjc"]
+sky_material = SubResource("ProceduralSkyMaterial_8y62m")
+process_mode = 1
 
-[sub_resource type="Environment" id="Environment_qtpei"]
+[sub_resource type="Environment" id="Environment_faoa6"]
 background_mode = 2
-sky = SubResource("Sky_mbgwu")
-sdfgi_use_occlusion = true
+sky = SubResource("Sky_66qjc")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_density = 0.025
+adjustment_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_t43xb"]
+auto_exposure_speed = 5.0
+dof_blur_near_enabled = true
+dof_blur_near_distance = 0.5
+dof_blur_amount = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_517jq"]
 albedo_color = Color(0.989004, 0.376231, 1.34766e-06, 1)
@@ -49,19 +58,25 @@ render_target_update_mode = 4
 
 [node name="3D Area" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
-[node name="Sun" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/3D Area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.3788, 37.2258, 0)
-light_color = Color(0.94902, 1, 1, 1)
+[node name="MatMan" parent="SubViewportContainer/SubViewport/3D Area" instance=ExtResource("4_ts85b")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport/3D Area"]
+environment = SubResource("Environment_faoa6")
+camera_attributes = SubResource("CameraAttributesPractical_t43xb")
+
+[node name="Sun" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport/3D Area/WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 15, 0)
 
 [node name="Camera" type="Camera3D" parent="SubViewportContainer/SubViewport/3D Area"]
 transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 2, 2, 2)
-environment = SubResource("Environment_qtpei")
 current = true
-fov = 37.8493
+fov = 90.0
 script = ExtResource("3_0wbdk")
 
 [node name="CameraLight" type="SpotLight3D" parent="SubViewportContainer/SubViewport/3D Area/Camera"]
-spot_range = 30.0
+visible = false
+light_energy = 5.0
+spot_range = 15.0
 
 [node name="Crosshair" type="Node3D" parent="SubViewportContainer/SubViewport/3D Area/Camera" node_paths=PackedStringArray("dot", "raycast")]
 script = ExtResource("4_kh5ft")
