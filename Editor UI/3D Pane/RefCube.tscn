@@ -21,10 +21,17 @@ shader_parameter/shine_angle_z = 15.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qoyyu"]
 
+<<<<<<< HEAD
 [node name="Ref Cube" type="StaticBody3D" node_paths=PackedStringArray("Cube", "Sheen")]
 script = ExtResource("1_xvl6t")
 Cube = NodePath("RefCube")
 Sheen = NodePath("Sheen")
+=======
+[node name="Ref Cube" type="StaticBody3D" node_paths=PackedStringArray("cube", "sheen")]
+script = ExtResource("1_2did3")
+cube = NodePath("RefCube")
+sheen = NodePath("Sheen")
+>>>>>>> 14f623163bc330b0543876a34674a9b9dc013702
 
 [node name="Sheen" type="MeshInstance3D" parent="."]
 visible = false

@@ -13,6 +13,7 @@ public partial class Pane3D : Node2D
 	[Export] PackedScene refEntity;
 	Dictionary<MapObject, Node3D> brush2mesh = new();
 	BrushList brushList;
+	MatMan matMan;
 	
 	[Signal] public delegate void TargetUpdatedEventHandler();
 	Crosshair crossMan;
@@ -23,6 +24,7 @@ public partial class Pane3D : Node2D
 		crossMan = GetNode<Crosshair>("SubViewportContainer/SubViewport/3D Area/Camera/Crosshair");
 		brushList = BrushList.Instance;
 		crossMan.Toggle(true);
+		matMan = GetNode<MatMan>("SubViewportContainer/SubViewport/3D Area/MatMan");
 	}
 	
 	
@@ -39,8 +41,14 @@ public partial class Pane3D : Node2D
 		switch (b)
 		{
 			case Brush brush:
+<<<<<<< HEAD
 				obj = refCube.Instantiate<Node3D>();
 				brush.mapObj = (ISelectable)obj;
+=======
+				var cub = refCube.Instantiate<RefCube>();
+				cub.SetMat(matMan.GetMat(brush.texture));
+				obj = cub;
+>>>>>>> 14f623163bc330b0543876a34674a9b9dc013702
 				break;
 			case Entity entity:
 				obj = refEntity.Instantiate<Node3D>();

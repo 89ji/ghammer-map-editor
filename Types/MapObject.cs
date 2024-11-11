@@ -8,8 +8,12 @@ using System.Numerics;
 
 public abstract class MapObject
 {
+<<<<<<< HEAD
 	public readonly Transform transform;
 	public ISelectable mapObj;
+=======
+	public Transform transform;
+>>>>>>> 14f623163bc330b0543876a34674a9b9dc013702
 
 	public MapObject(Transform transform)
 	{

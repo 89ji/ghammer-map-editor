@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://1bkjmj1x5bth"]
+
+[ext_resource type="Texture2D" uid="uid://i60v707c8kim" path="res://Resources/Materials/crate.png" id="1_brfkr"]
+[ext_resource type="Texture2D" uid="uid://bxn5pe7vd1rqm" path="res://Resources/Materials/crate spec.png" id="2_iqes2"]
+
+[resource]
+albedo_texture = ExtResource("1_brfkr")
+metallic = 1.0
+metallic_texture = ExtResource("2_iqes2")
+metallic_texture_channel = 4

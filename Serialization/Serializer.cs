@@ -11,11 +11,12 @@ public static class Serializer
 	public static void SerializeMap(string dest, BrushList mapObjects)
 	{
 		StringBuilder sb = new();
-		
+
 		string mapname = "The name of the map goes here";
 		sb.Append($"Mapname: {mapname}\n");
 		foreach (var mapObj in mapObjects)
 		{
+<<<<<<< HEAD
 			switch (mapObj)
 			{
 				case Brush b:
@@ -25,10 +26,15 @@ public static class Serializer
 					sb.Append($"Entity: {e.GetTranslate} {e.GetRotation} {e.GetScale}\n");
 					break;
 			}
+=======
+			if (brush is Brush b) sb.Append($"Brush: {b.GetTranslate} {b.GetRotation} {b.GetScale} {b.texture}\n");
+			else if (brush is Entity e) sb.Append($"Entity: {e.GetTranslate} {e.GetRotation} {e.GetScale} {e.Type switch {Enums.EntityType.OmniLight => "Omni", Enums.EntityType.DirectLight => "Spot",	Enums.EntityType.Spawn => "Spawn", Enums.EntityType.Void => "Void"}}\n");
+
+>>>>>>> 14f623163bc330b0543876a34674a9b9dc013702
 		}
 
 		using StreamWriter sw = new(dest);
-		
+
 		sw.Write(sb.ToString());
 	}
 

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bm5p7mxxdvgmq"]
+
+[ext_resource type="Texture2D" uid="uid://dx61u1lrtxmt6" path="res://Resources/Materials/concrete wall.jpg" id="1_r52x1"]
+[ext_resource type="Texture2D" uid="uid://b6uku4q0i3fw4" path="res://Resources/Materials/concrete wall spec.jpg" id="2_3tdt1"]
+
+[resource]
+albedo_texture = ExtResource("1_r52x1")
+metallic = 1.0
+metallic_texture = ExtResource("2_3tdt1")

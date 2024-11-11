@@ -1,0 +1,22 @@
+[gd_scene load_steps=10 format=3 uid="uid://sekuaexp681b"]
+
+[ext_resource type="Script" path="res://Types/MatMan.cs" id="1_pxtln"]
+[ext_resource type="Material" uid="uid://cljxhwbol5hee" path="res://Resources/Materials/ConcFloor.tres" id="2_b3lem"]
+[ext_resource type="Material" uid="uid://bm5p7mxxdvgmq" path="res://Resources/Materials/ConcWall.tres" id="3_405cb"]
+[ext_resource type="Material" uid="uid://cas8i6y6f0g7k" path="res://Resources/Materials/Glass.tres" id="4_tcja4"]
+[ext_resource type="Material" uid="uid://qf3p3uqtqe03" path="res://Resources/Materials/Metal.tres" id="5_byuo0"]
+[ext_resource type="Material" uid="uid://dan3eb3c383v8" path="res://Resources/Materials/Brick.tres" id="6_oyxot"]
+[ext_resource type="Material" uid="uid://dqp3sb0ww43wr" path="res://Resources/Materials/Carpet.tres" id="7_pwrj7"]
+[ext_resource type="Material" uid="uid://ca561sqt7wn4x" path="res://Resources/Materials/Ceiling.tres" id="8_chnau"]
+[ext_resource type="Material" uid="uid://1bkjmj1x5bth" path="res://Resources/Materials/Crate.tres" id="9_bbqqj"]
+
+[node name="MatMan" type="Node"]
+script = ExtResource("1_pxtln")
+ConcFloor = ExtResource("2_b3lem")
+ConcWall = ExtResource("3_405cb")
+Glass = ExtResource("4_tcja4")
+Metal = ExtResource("5_byuo0")
+Brick = ExtResource("6_oyxot")
+Carpet = ExtResource("7_pwrj7")
+Ceiling = ExtResource("8_chnau")
+Crate = ExtResource("9_bbqqj")

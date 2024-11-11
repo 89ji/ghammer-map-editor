@@ -1,5 +1,10 @@
-Mapname: The name of the map goes here
-Brush: <0, 0, 0> <0, 0, 0> <1, 1, 1>
-Brush: <10, 5, 0> <5, 10, 15> <20, 100, 10>
-Brush: <0, -10, 0> <0, 0, 0> <10, 1, 10>
-Brush: <0, 0, 0> <0, 0, 0> <10, 10, 10>
+Mapname: wow so cool
+Brush: <10, -5, 0> <0, 45, 0> <10, 1, 10> Crate
+Brush: <10, -6, 0> <0, 0, 0> <10, 4, 10> Crate
+Brush: <0, -6, 0> <0, 0, 0> <1, 1, 1> Metal
+Brush: <0, -7, 0> <0, 0, 0> <50, .1, 50> Glass
+Entity: <15, 0, 15> <0, 0, 0> Omni
+Entity: <-15, 5, 15> <0, 0, 0> Omni
+Entity: <15, 5, -15> <0, 0, 0> Omni
+Entity: <-15, 5, -15> <0, 0, 0> Omni
+Entity: <-15, 5, -15> <0, 0, 0> Spot
