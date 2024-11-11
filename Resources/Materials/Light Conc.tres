@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bupgn83synfar"]
+
+[ext_resource type="Texture2D" uid="uid://bqq1bthdvnxhq" path="res://Resources/Materials/conc light.jpg" id="1_k0jay"]
+[ext_resource type="Texture2D" uid="uid://c4obbtxxvxege" path="res://Resources/Materials/conc dark spec.jpg" id="2_ci4av"]
+
+[resource]
+albedo_texture = ExtResource("1_k0jay")
+roughness_texture = ExtResource("2_ci4av")

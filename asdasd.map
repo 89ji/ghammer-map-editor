@@ -1,2 +1,3 @@
 Mapname: The name of the map goes here
-Brush: <0, 0, 0> <0, 0, 0> <1, 1, 1> Crate
+Brush: <0, 0, 0> <0.19198626, 0, 0> <4, 2, -1> Ceiling
+Brush: <0, -4, 0> <0, 0, 0> <10, 1, 10> Metal

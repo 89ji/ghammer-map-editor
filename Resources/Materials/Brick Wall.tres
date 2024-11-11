@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bdlhywp8sagvs"]
+
+[ext_resource type="Texture2D" uid="uid://bbir26mo6b8ow" path="res://Resources/Materials/brick wall.jpg" id="1_d5frp"]
+[ext_resource type="Texture2D" uid="uid://cnppappdfgjfx" path="res://Resources/Materials/brick wall spec.jpg" id="2_e0i76"]
+
+[resource]
+albedo_texture = ExtResource("1_d5frp")
+metallic = 1.0
+metallic_texture = ExtResource("2_e0i76")
+metallic_texture_channel = 4

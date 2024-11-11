@@ -176,4 +176,15 @@ public partial class EditorPane : Node2D
 		}
 		currentBrush.ScaleBy(trans);
 	}
+
+	void SetMaterial(int texIdAsInt)
+	{
+		if(currentBrush == null) return;
+		Textures tex = (Textures) texIdAsInt;
+		if (currentBrush is Brush b)
+		{
+			b.texture = tex;
+			View.UpdateCurrentTexture(tex, b);
+		}
+	}
 }

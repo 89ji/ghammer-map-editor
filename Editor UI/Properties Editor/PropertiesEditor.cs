@@ -8,30 +8,28 @@ public partial class PropertiesEditor : Node2D
 	[Export] LineEdit transX;
 	[Export] LineEdit transY;
 	[Export] LineEdit transZ;
-		
+
 	[Export] LineEdit rotX;
 	[Export] LineEdit rotY;
 	[Export] LineEdit rotZ;
-		
+
 	[Export] LineEdit scaleX;
 	[Export] LineEdit scaleY;
 	[Export] LineEdit scaleZ;
-	
+
 	BrushList brushList = BrushList.Instance;
 	MapObject currentBrush;
-	
-	Vector3 oldTrans;
-	Vector3 oldRot;
-	Vector3 oldScale;
-	
+
+	bool MouseIn;
+
 	public override void _Ready()
 	{
 
 	}
-	
+
 	public override void _Process(double delta)
 	{
-		//UpdateValues();
+		UpdateValues();
 	}
 
 	void LoadValues()
@@ -39,42 +37,43 @@ public partial class PropertiesEditor : Node2D
 		var trans = currentBrush.GetTranslate;
 		var rot = currentBrush.GetRotation;
 		var scale = currentBrush.GetScale;
-		
+
 		transX.Text = trans.X.ToString();
 		transY.Text = trans.Y.ToString();
 		transZ.Text = trans.Z.ToString();
-		
+
 		rotX.Text = rot.X.toDeg().ToString();
 		rotY.Text = rot.Y.toDeg().ToString();
 		rotZ.Text = rot.Z.toDeg().ToString();
-		
+
 		scaleX.Text = scale.X.ToString();
 		scaleY.Text = scale.Y.ToString();
 		scaleZ.Text = scale.Z.ToString();
 	}
-	
+
 	// TODO Find a way to maintain both the nudge buttons and manual input
 	void UpdateValues()
 	{
 		if (currentBrush == null) return;
+		//GD.Print(MouseIn);
 		try
 		{
-			System.Numerics.Vector3 editorTrans = new (transX.Text.ToFloat(), transY.Text.ToFloat(), transZ.Text.ToFloat());
-			System.Numerics.Vector3 editorRot = new (rotX.Text.ToFloat().toRad(), rotY.Text.ToFloat().toRad(), rotZ.Text.ToFloat().toRad());
-			System.Numerics.Vector3 editorScale = new (scaleX.Text.ToFloat(), scaleY.Text.ToFloat(), scaleZ.Text.ToFloat());
-			
-			Vector3 gTrans = editorTrans.ToGDVec3();
-			Vector3 gRot = editorRot.ToGDVec3();
-			Vector3 gScale = editorScale.ToGDVec3();
 
-			if(gTrans == oldTrans || gRot == oldRot || gScale == oldScale)
+			if (MouseIn)
 			{
+				System.Numerics.Vector3 editorTrans = new(transX.Text.ToFloat(), transY.Text.ToFloat(), transZ.Text.ToFloat());
+				System.Numerics.Vector3 editorRot = new(rotX.Text.ToFloat().toRad(), rotY.Text.ToFloat().toRad(), rotZ.Text.ToFloat().toRad());
+				System.Numerics.Vector3 editorScale = new(scaleX.Text.ToFloat(), scaleY.Text.ToFloat(), scaleZ.Text.ToFloat());
+
+
 				currentBrush.TranslateTo(editorTrans);
 				currentBrush.RotateTo(editorRot);
 				currentBrush.ScaleTo(editorScale);
 			}
+			else LoadValues();
+
 		}
-		catch {}
+		catch { }
 	}
 
 	void ClearEntries()
@@ -97,4 +96,6 @@ public partial class PropertiesEditor : Node2D
 		if (currentBrush == null) ClearEntries();
 		else LoadValues();
 	}
+
+	void SetMouse(bool mIn) => MouseIn = mIn;
 }

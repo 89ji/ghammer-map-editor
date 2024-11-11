@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using gHammerMapEditor.Types;
 using gHammerMapEditor.Util;
+using gHammerMapEditor.Enums;
 
 public partial class Pane3D : Node2D
 {
@@ -92,5 +93,14 @@ public partial class Pane3D : Node2D
 	{
 		foreach (var brush in brush2mesh.Keys) if (brush2mesh[brush] == crossMan.collisionObject) lookingBrush = brush;
 		EmitSignal(SignalName.TargetUpdated);
+	}
+
+	public void UpdateCurrentTexture(Textures tex, Brush brush)
+	{
+		var mesh = brush2mesh[brush];
+		if(mesh is RefCube cub)
+		{
+			cub.SetMat(matMan.GetMat(tex));
+		}
 	}
 }

@@ -8,7 +8,7 @@ public class Brush : MapObject
 {
 	public readonly Dictionary<Coord3d, Coord3d> TransformedPoints = new();
 	private readonly RefCube refCube = new();
-	public readonly Textures texture = Textures.Crate;
+	public Textures texture = Textures.Crate;
 
 	public Brush(Transform transform)
 	{

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bcb6f0b611y7m"]
+
+[ext_resource type="Texture2D" uid="uid://bs34yrnoglknk" path="res://Resources/Materials/inConcFloor.jpg" id="1_iacov"]
+[ext_resource type="Texture2D" uid="uid://dwlg0nvf16n6l" path="res://Resources/Materials/inConcFloorSpec.jpg" id="2_135c3"]
+
+[resource]
+albedo_texture = ExtResource("1_iacov")
+metallic_texture = ExtResource("2_135c3")
+metallic_texture_channel = 4

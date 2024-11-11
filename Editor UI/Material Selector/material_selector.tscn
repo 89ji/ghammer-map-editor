@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfsohxfneqjx0"]
+
+[ext_resource type="Script" path="res://Editor UI/Material Selector/MaterialSelector.cs" id="1_8rp3p"]
+
+[node name="Material Selector" type="Node2D" node_paths=PackedStringArray("options")]
+script = ExtResource("1_8rp3p")
+options = NodePath("OptionButton")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 666.0
+offset_top = 337.0
+offset_right = 791.0
+offset_bottom = 382.0
+theme_override_font_sizes/normal_font_size = 30
+text = "Material"
+
+[node name="OptionButton" type="OptionButton" parent="."]
+offset_left = 809.0
+offset_top = 329.0
+offset_right = 1131.0
+offset_bottom = 385.0
+theme_override_font_sizes/font_size = 30
+alignment = 1
+
+[connection signal="item_selected" from="OptionButton" to="." method="OnSelect"]
