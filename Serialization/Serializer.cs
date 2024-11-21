@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Text;
 using gHammerMapEditor.Types;
 
@@ -17,7 +17,7 @@ public static class Serializer
 		foreach (var brush in brushes)
 		{
 			if (brush is Brush b) sb.Append($"Brush: {b.GetTranslate} {b.GetRotation} {b.GetScale} {b.texture}\n");
-			else if (brush is Entity e) sb.Append($"Entity: {e.GetTranslate} {e.GetRotation} {e.GetScale} {e.Type switch { Enums.EntityType.OmniLight => "Omni", Enums.EntityType.DirectLight => "Spot", Enums.EntityType.Spawn => "Spawn", Enums.EntityType.Void => "Void", _ => throw new System.NotImplementedException() }}\n");
+			else if (brush is Entity e) sb.Append($"Entity: {e.GetTranslate} {e.GetRotation} {e.Type switch { Enums.EntityType.OmniLight => "Omni", Enums.EntityType.DirectLight => "Spot", Enums.EntityType.Spawn => "Spawn", Enums.EntityType.Void => "Void", _ => throw new System.NotImplementedException() }}\n");
 
 		}
 
